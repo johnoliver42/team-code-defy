@@ -18,7 +18,7 @@
 * Amazon EC2 Elastic Beanstalk
 
 ### Project Operations
-* [Journal](designDocuments/journal.md)
-* [Team Resume](designDocuments/resume.md)
-* [Team Charter](designDocuments/charter.md)
-* [Project Plan](designDocuments/projectPlan.md)
+* [Journal](design/journal.md)
+* [Team Resume](design/resume.md)
+* [Team Charter](design/charter.md)
+* [Project Plan](design/projectPlan.md)
