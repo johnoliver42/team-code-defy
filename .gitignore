@@ -310,6 +310,10 @@ fabric.properties
 
 # Generated files
 .idea/**/contentModel.xml
+.idea/**
+.idea
+.idea/
+temp.iml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
