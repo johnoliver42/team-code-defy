@@ -30,5 +30,6 @@
 
 ### Weekly Meeting Tasks Assigned/Completed
 - [x] Project repository created.
+- [x] Added link to project to the student repository. 
 
 
