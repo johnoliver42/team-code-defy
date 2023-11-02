@@ -1,4 +1,4 @@
-# Team Enterprise Resume
+# Team Code-Defy Resume
 ## Qualifications
 ### John
 * 3+ years of experience developing part time in Java, JavaScript, PHP, and Linux

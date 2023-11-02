@@ -1,4 +1,4 @@
-# Team Enterprise Charter
+# Team Code-Defy Charter
 
 ## Team Members
 * John Oliver, Shilpa Handa, Kailyn Angelo

@@ -1,4 +1,4 @@
-# Team Enterprise
+# Team Code-Defy
 ### Team Members
 * Shilpa [shanda-matc](https://github.com/shanda-matc)
 * Kailyn [kailynangelo](https://github.com/kailynangelo)
