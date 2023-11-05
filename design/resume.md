@@ -1,9 +1,9 @@
-# Team Code-Defy Resume
+# Team Enterprise Resume
 ## Qualifications
 ### John
-* 3+ years of experience developing part time in Java, JavaScript, PHP, and Linux
+* 3+ years of professional development experience in Java, JavaScript, PHP, and Linux
 ### Shilpa
-* 
+* 3+ years of experience developing with Javascript, PHP, Linux, SQL, Python and .NET environment
 ### Kailyn
 * 1-2 years experience developing with Java, JavaScript, SQL, and .NET environment
 
@@ -11,41 +11,41 @@
 ### Is a good speaker?
 * John, Kailyn
 ### Is a good listener?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Can manage details
-* John
+* John, Shilpa
 ### Likes to lead?
 * John, Kailyn
 ### Likes to follow/follow directions?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Thinks fast on their feet?
-* John
+* John, Kailyn, Shilpa
 ### Makes decisions quickly?
 * John
 ### Is a thinker, rather than a talker?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Is organized?
-* John
+* John, Shilpa
 ### Is good with numbers, stats, and data?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Can create effective slides?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Is a strong writer?
 * John
 ### Can handle criticism?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Has served as a project manager?
 * John, Kailyn
 ### Uses social media for work?
-* 
+*
 ### Currently works in IT?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Can explain MVC?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Has experience with APIs?
 * John
 ### Has experience GIT branches?
-* John, Kailyn
+* John, Kailyn, Shilpa
 ### Has had to hire anyone?
 * John
 ### Has been on call during an emergency?
@@ -53,4 +53,4 @@
 ### Has performed in front of a crowd?
 * Kailyn
 ### Can speak more than one language?
-* Kailyn
+* Kailyn, Shilpa
