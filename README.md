@@ -8,7 +8,10 @@
 We are creating a backend API that could be used for a reading list website that allows users to track books they want to read. The API will use the Google Books API to automatically populate book information and will support adding, removing, tracking if a book was read, and re-ordering the list of books.
 
 #### Goals
-
+* Create a high quality API that will be easy for others to use and incorporate with their own web service.
+  * Store and return information about the books in the reading list.
+  * Store and return the reading list.
+  * Update the reading list.
 
 ### Project Technologies/Techniques
 * Java
@@ -16,6 +19,10 @@ We are creating a backend API that could be used for a reading list website that
 * Log4J2
 * IntelliJ IDEA
 * Amazon EC2 Elastic Beanstalk
+* Google Books API
+* JUnit
+* MySQL
+* Jackson
 
 ### Project Operations
 * [Journal](design/journal.md)
