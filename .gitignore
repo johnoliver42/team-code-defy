@@ -83,6 +83,8 @@ fabric.properties
 
 # Log file
 *.log
+/log
+log
 
 # BlueJ files
 *.ctxt
@@ -562,3 +564,4 @@ fabric.properties
 hs_err_pid*
 replay_pid*
 /.idea/
+/src/main/resources/hibernate.cfg.xml
