@@ -34,10 +34,20 @@
 
 ## Week 3
 ### Meeting Notes (11/6/23)
-> 
+> - Decided on problem statement and objectives
+> - Discussed technologies we will use
+> - Request "approval" from Paula
+> - Team charter agreement - review and "sign"
+> - Discussed project plan and create high level project structure
+> - Note: db passwords and other sensitive information should 
+>  not be openly accessible. We will use dummy config to track in git and 
+>  have local copies with the actual info and add them to .gitignore
 
-### Blockers
-> None.
+> Next steps - We will keep an eye out for Paula's feedback on project plan.
+> Next meeting is scheduled for Wednesday 11/8 at 4pm. Until then we will
+> communicate in slack as needed. If given the OK from Paula, will begin
+> dividing up and assigning tasks. 
+
 ### Blockers
 > None.
 
