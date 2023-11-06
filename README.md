@@ -5,7 +5,7 @@
 * John [JohnOliver42](https://github.com/johnoliver42)
 
 ## Overview/Problem Statement
-
+We are creating a backend API that could be used for a reading list website that allows users to track books they want to read. The API will use the Google Books API to automatically populate book information and will support adding, removing, tracking if a book was read, and re-ordering the list of books.
 
 #### Goals
 
