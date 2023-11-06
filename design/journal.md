@@ -32,4 +32,14 @@
 - [x] Project repository created.
 - [x] Added link to project to the student repository. 
 
+## Week 3
+### Meeting Notes (11/6/23)
+> 
 
+### Blockers
+> None.
+### Blockers
+> None.
+
+### Weekly Meeting Tasks Assigned/Completed
+- []

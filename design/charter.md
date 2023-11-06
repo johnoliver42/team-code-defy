@@ -10,7 +10,7 @@
 * Until project is complete
 
 ## Meeting Times
-* 
+* We will schedule meetings as needed at the end of each meeting. 
 
 ## Responsibilities
 ### Create repository
@@ -24,19 +24,18 @@
 * We will use Microsoft Teams for video conferencing and screen sharing
 
 ### Meeting Minutes and Journal
-* 
+* Kailyn will be responsible for taking meeting minutes and updating the journal.
 
 ### Keep Meeting on track
 * John Oliver
 
 ## Ground Rules
-* Make sure everyone is in agreement
+* Make sure everyone is in agreement.
 * When using Slack, create a new thread for each topic, and reply in thread to each topic. This will help keep the Slack channel clean and easy to follow.
-* Have respectful and open discussions on ideas, problems, blockers, and concerns
-* Don't wait too long before reaching out for help
-* Attend team meetings
-* Team will agree upon who is responsible for tasks to ensure even distribution of responsibilities
-* Inform the team if you are behind on a task that is assigned to you
-* Try to keep comments concise and direct
-* Don't clutter the Slack communication channel, reply in thread as much as possible.
+* Have respectful and open discussions on ideas, problems, blockers, and concerns.
+* Don't wait too long before reaching out for help.
+* Attend team meetings.
+* Team will agree upon who is responsible for tasks to ensure even distribution of responsibilities.
+* Inform the team if you are behind on a task that is assigned to you.
+* Try to keep comments concise and direct.
 * Except for small changes to design documentation all features, bugfixes, and other coding work will be completed on a separate feature branch in git. 
