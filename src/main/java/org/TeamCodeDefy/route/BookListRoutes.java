@@ -1,9 +1,13 @@
 package org.TeamCodeDefy.route;
 
+import org.TeamCodeDefy.service.BookListApiService;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
+import static org.TeamCodeDefy.service.BookListApiService.createReadingListService;
 
 /**
  * API routes for BookList. (Contains only the code needed to route
@@ -18,6 +22,12 @@ public class BookListRoutes {
      * @return
      */
     public Response createReadingList() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+        BookListApiService.createReadingListService();
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -27,6 +37,11 @@ public class BookListRoutes {
      * @return Success or failure message.
      */
     public Response deleteReadingList() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -39,6 +54,12 @@ public class BookListRoutes {
     @Path("stub")
     @Produces("application/json")
     public Response getReadingList() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -49,6 +70,11 @@ public class BookListRoutes {
      * @return Success or failure message.
      */
     public Response addBookToReadingListByIsbn() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -60,6 +86,11 @@ public class BookListRoutes {
      * @return Success or failure message.
      */
     public Response addBookToReadingListName() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -69,6 +100,11 @@ public class BookListRoutes {
      * @return Success or failure message.
      */
     public Response removeBookFromReadingList() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -79,6 +115,11 @@ public class BookListRoutes {
      * @return Success or failure message.
      */
     public Response updateBookReadingOrder() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -88,6 +129,11 @@ public class BookListRoutes {
      * @return
      */
     public Response setBookReadStatus() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
 
@@ -97,10 +143,12 @@ public class BookListRoutes {
      * @return
      */
     public Response getBook() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
         return null;
     }
-
-
-
 
 }
