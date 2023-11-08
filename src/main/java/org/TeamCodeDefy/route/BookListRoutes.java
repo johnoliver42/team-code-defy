@@ -2,9 +2,7 @@ package org.TeamCodeDefy.route;
 
 import org.TeamCodeDefy.service.BookListApiService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import static org.TeamCodeDefy.service.BookListApiService.createReadingListService;
@@ -13,21 +11,26 @@ import static org.TeamCodeDefy.service.BookListApiService.createReadingListServi
  * API routes for BookList. (Contains only the code needed to route
  * API requests to the correct controller/function.)
  */
+@Path("booklist")
 public class BookListRoutes {
 
 
     /**
      * Create a new BookList that a user can add books to.
      *
-     * @return
+     * @return Reading List ID
      */
-    public Response createReadingList() {
+    @GET
+    @Path("/create-list")
+    @Produces
+    public Response createReadingList(@QueryParam("listName") String listName) {
         // Convert data to Java types as needed.
 
         // Call the function in BookListApiService.java.
         BookListApiService.createReadingListService();
 
         // Convert Java types to JSON/Response as needed.
+
         return null;
     }
 
@@ -36,7 +39,10 @@ public class BookListRoutes {
      *
      * @return Success or failure message.
      */
-    public Response deleteReadingList() {
+    @GET
+    @Path("reading-list/{id}/delete")
+    @Produces("application/json")
+    public Response deleteReadingList(@PathParam("id") String id) {
         // Convert data to Java types as needed.
 
         // Call the function in BookListApiService.java.
@@ -69,7 +75,10 @@ public class BookListRoutes {
      *
      * @return Success or failure message.
      */
-    public Response addBookToReadingListByIsbn() {
+    @POST
+    @Path("reading-list/{id}/add-book-by-isbn/{isbn}")
+    @Produces("application/json")
+    public Response addBookToReadingListByIsbn(@PathParam("id") String id, @PathParam("isbn") String isbn) {
         // Convert data to Java types as needed.
 
         // Call the function in BookListApiService.java.
@@ -85,7 +94,10 @@ public class BookListRoutes {
      *
      * @return Success or failure message.
      */
-    public Response addBookToReadingListName() {
+    @POST
+    @Path("reading-list/{id}/add-book-by-name")
+    @Produces("application/json")
+    public Response addBookToReadingListByName() {
         // Convert data to Java types as needed.
 
         // Call the function in BookListApiService.java.
@@ -143,6 +155,34 @@ public class BookListRoutes {
      * @return
      */
     public Response getBook() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
+        return null;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public Response updateLastPageRead() {
+        // Convert data to Java types as needed.
+
+        // Call the function in BookListApiService.java.
+
+        // Convert Java types to JSON/Response as needed.
+        return null;
+    }
+
+    /**
+     * Update a book using the books ID and reading list ID.
+     *
+     * @return
+     */
+    public Response updateBook() {
         // Convert data to Java types as needed.
 
         // Call the function in BookListApiService.java.
