@@ -51,5 +51,20 @@
 ### Blockers
 > None.
 
+### Meeting Notes (11/8/23)
+> - Got the okay to move forward with plan. 
+> - Decided on JSON for response format
+> - Decided to use [projectPlan.md]() for tracking tasks
+>   - see this document for assigned tasks
+> - Discussed functions we need, create stubs in project
+>   - BookListRoutes
+>   - BookListApiService
+> - Designed database with tables for reading list and books, sql files added to project
+> - Discuss what to use for paths - partially on call, but needs completed for all methods
+> - Scheduled next meeting for Saturday 11/11 at 2pm
+
+### Blockers
+> None.
+
 ### Weekly Meeting Tasks Assigned/Completed
 - []
