@@ -37,6 +37,12 @@
 - [ ] Stub out service functions. 
 
 ### Web/Route Classes (John)
+- [x] Stub out web/route functions.
+- [ ] Create test class for BookListRouts.
+- [ ] Add annotations with proper paths.
+- [ ] Add code to convert from URL parameters to functions/objects.
+- [ ] Add code to convert from Java POJOse to JSON.
+- [ ] Create test functions for each route.
 
 
 ### Amazon Web Hosting (John)
@@ -46,6 +52,13 @@
 
 ### Database Persistence (John)
 - [ ] Create a database/Hibernate package/classes
+- [ ] Create POJO for DB tables.
+- [ ] Create test class for DB classes.
+- [ ] Create functions to test DB CRUD operations.
+  - [ ] Create/add
+  - [ ] Delete
+  - [ ] Update
+  - [ ] Read  
 
 
 
