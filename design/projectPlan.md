@@ -11,8 +11,29 @@
 - [x] Decide on the project to move forward with (Everyone)
 - [x] Determine API to use with project. (Everyone)
 - [x] Create the Problem Statement (Everyone)
+- [x] Design the API front end. (Everyone)
+
+### Create Google Books API Code (Kailyn)
+- [ ] Create a Google Books package/classes
+
+
+### API Documentation (Shilpa)
+- [ ] Create API documentation for the Reading List API using Swagger.io
+
+
+### Service Classes (Shilpa)
+- [ ] Stub out service functions. 
+
+### Web/Route Classes (John)
+
+
+### Amazon Web Hosting (John)
+- [ ] Create an Elastic Beanstalk instance
+- [ ] Create a database instance
+
+
+### Database Persistence (John)
+- [ ] Create a database/Hibernate package/classes
 
 
 
-### Stretch Goals
-- [ ] Create stretch goals. (Everyone)
