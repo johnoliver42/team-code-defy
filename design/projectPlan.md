@@ -13,6 +13,18 @@
 - [x] Create the Problem Statement (Everyone)
 - [x] Design the API front end. (Everyone)
 
+### Create Repository (John)
+- [x] Create a repository for the project 
+- [x] Create a README.md file 
+- [x] Create journal, charter, resume files. 
+
+### Create basic project structure/design (John)
+- [x] Create project folders/packages.
+- [x] Create log4j and Hibernate base config files and sample files.
+- [x] Create major classes.
+- [x] Stub out example functions in major classes.
+
+
 ### Create Google Books API Code (Kailyn)
 - [ ] Create a Google Books package/classes
 
