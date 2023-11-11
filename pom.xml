@@ -17,7 +17,7 @@
     <ibatis2-common>2.1.7.597</ibatis2-common>
     <org-hibernate-c3p0>5.6.15.Final</org-hibernate-c3p0>
     <org-hibernate-version>5.4.24.Final</org-hibernate-version>
-    <jackson-version>2.12.7.1</jackson-version>
+    <jackson-version>2.12.7</jackson-version>
   </properties>
   <dependencies>
 
@@ -103,13 +103,18 @@
       <artifactId>jackson-databind</artifactId>
       <version>${jackson-version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>2.12.7</version>
-    </dependency>
   </dependencies>
   <build>
     <finalName>temp</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>

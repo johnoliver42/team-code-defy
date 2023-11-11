@@ -3,7 +3,7 @@ package org.TeamCodeDefy.googleBooksApi;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Response{
+public class GoogleBookResponse {
 
 	@JsonProperty("totalItems")
 	private int totalItems;
@@ -41,7 +41,7 @@ public class Response{
 	@Override
  	public String toString(){
 		return 
-			"Response{" + 
+			"GoogleBookResponse{" +
 			"totalItems = '" + totalItems + '\'' + 
 			",kind = '" + kind + '\'' + 
 			",items = '" + items + '\'' + 
