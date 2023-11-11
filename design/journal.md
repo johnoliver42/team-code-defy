@@ -66,5 +66,16 @@
 ### Blockers
 > None.
 
+### Meeting Notes (11/11/23)
+> - Reviewed branching, pull requests and merging. Merging all code to main so branch up to date. 
+> - John and Shilpa switching tasks - see [projectPlan.md] for assigned tasks
+> - Walkthrough project structure with diagram (see [projectDiagram.png] in design docs)
+> - Everyone should set up local test db (sql files in design folder)
+> - Next team meeting will be Monday 11/13 at 4 pm
+
+### Blockers
+> None.
+
+
 ### Weekly Meeting Tasks Assigned/Completed
 - []
