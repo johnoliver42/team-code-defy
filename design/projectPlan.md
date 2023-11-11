@@ -27,7 +27,8 @@
 
 ### Create Google Books API Code (Kailyn)
 - [ ] Create a Google Books package/classes
-
+- [ ] Create google project and api-key
+- [ ] Stub out api functions
 
 ### API Documentation (Shilpa)
 - [ ] Create API documentation for the Reading List API using Swagger.io
