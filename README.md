@@ -24,6 +24,9 @@ We are creating a backend API that could be used for a reading list website that
 * MySQL
 * Jackson
 
+### Project Site
+* [reading List API](http://readinglist.us-east-2.elasticbeanstalk.com/)
+
 ### Project Operations
 * [Journal](design/journal.md)
 * [Team Resume](design/resume.md)

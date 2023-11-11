@@ -46,8 +46,8 @@
 
 
 ### Amazon Web Hosting (John)
-- [ ] Create an Elastic Beanstalk instance
-- [ ] Create a database instance
+- [x] Create an Elastic Beanstalk instance
+- [x] Create a database instance
 
 
 ### Database Persistence (John)
