@@ -17,7 +17,7 @@
     <ibatis2-common>2.1.7.597</ibatis2-common>
     <org-hibernate-c3p0>5.6.15.Final</org-hibernate-c3p0>
     <org-hibernate-version>5.4.24.Final</org-hibernate-version>
-      <jackson-version>2.10.0</jackson-version>
+    <jackson-version>2.12.7.1</jackson-version>
   </properties>
   <dependencies>
 
