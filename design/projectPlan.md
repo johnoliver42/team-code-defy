@@ -27,7 +27,10 @@
 
 ### Create Google Books API Code (Kailyn)
 - [ ] Create a Google Books package/classes
-
+- [ ] Create POJO for API response using Jackson
+- [ ] Create DAO that returns response
+- [ ] Write unit tests using junit
+- [ ] Documentation for all classes/methods
 
 ### API Documentation (Shilpa)
 - [ ] Create API documentation for the Reading List API using Swagger.io
