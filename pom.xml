@@ -15,8 +15,26 @@
     <junit-vintage-version>4.12.0</junit-vintage-version>
     <log4j-version>2.20.0</log4j-version>
     <ibatis2-common>2.1.7.597</ibatis2-common>
+    <org-hibernate-c3p0>5.6.15.Final</org-hibernate-c3p0>
+    <org-hibernate-version>5.4.24.Final</org-hibernate-version>
   </properties>
   <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${org-hibernate-version}</version>
+    </dependency>
+
+    <!-- c3p0 - used to handle connection pooling with hibernate -->
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-c3p0</artifactId>
+      <version>${org-hibernate-c3p0}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-runner</artifactId>
