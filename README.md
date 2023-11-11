@@ -16,6 +16,7 @@ We are creating a backend API that could be used for a reading list website that
 ### Project Technologies/Techniques
 * Java
 * Maven
+* Hibernate
 * Log4J2
 * IntelliJ IDEA
 * Amazon EC2 Elastic Beanstalk
@@ -23,6 +24,7 @@ We are creating a backend API that could be used for a reading list website that
 * JUnit
 * MySQL
 * Jackson
+* Jersey
 
 ### Project Site
 * [reading List API](http://readinglist.us-east-2.elasticbeanstalk.com/)
