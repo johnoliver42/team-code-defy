@@ -36,10 +36,10 @@
 - [ ] Create API documentation for the Reading List API using Swagger.io
 
 
-### Service Classes (Shilpa)
+### Service Classes (John)
 - [ ] Stub out service functions. 
 
-### Web/Route Classes (John)
+### Web/Route Classes (Shilpa)
 - [x] Stub out web/route functions.
 - [ ] Create test class for BookListRouts.
 - [ ] Add annotations with proper paths.
@@ -51,10 +51,12 @@
 ### Amazon Web Hosting (John)
 - [x] Create an Elastic Beanstalk instance
 - [x] Create a database instance
+- [x] Add link to project site to README.md
 
 
 ### Database Persistence (John)
 - [ ] Create a database/Hibernate package/classes
+- [x] Add helper class to run SQL scripts for testing. 
 - [ ] Create POJO for DB tables.
 - [ ] Create test class for DB classes.
 - [ ] Create functions to test DB CRUD operations.
