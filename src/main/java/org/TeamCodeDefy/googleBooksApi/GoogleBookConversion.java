@@ -12,7 +12,17 @@ public class GoogleBookConversion {
      **/
     public Book mapToBookEntity(GoogleBookResponse googleBookResponse, Book book) {
 
-        book.setTitle(googleBookResponse.);
+        VolumeInfo bookInfo = googleBookResponse.getItems().get(0).getVolumeInfo();
+
+        book.setTitle(bookInfo.getTitle());
+        book.setAuthor(String.join(";", bookInfo.getAuthors()));
+        // TODO book isbn - see ItemsItem
+        book.setDescription(bookInfo.getDescription());
+        book.setPublisher(bookInfo.getPublisher());
+        book.setLanguage(bookInfo.getLanguage());
+        book.setPageCount(bookInfo.getPageCount());
+        // TODO average rating?? not available?
+        book.setThumbnailLink(bookInfo.getImageLinks().getThumbnail());
 
         return book;
     }
