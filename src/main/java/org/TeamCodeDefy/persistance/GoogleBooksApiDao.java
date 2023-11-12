@@ -11,11 +11,14 @@ import javax.ws.rs.core.MediaType;
 
 public class GoogleBooksApiDao {
 
-    public GoogleBookResponse getGoogleBook() {
-        Client client = ClientBuilder.newClient();
+    public GoogleBookResponse getGoogleBook(String isbn) {
+
         //TODO read in URI from properties file
+        String uri = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+
+        Client client = ClientBuilder.newClient();
         WebTarget target =
-                client.target("https://www.googleapis.com/books/v1/volumes?q=isbn:9781476735115");
+                client.target(uri);
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
 
         ObjectMapper mapper = new ObjectMapper();

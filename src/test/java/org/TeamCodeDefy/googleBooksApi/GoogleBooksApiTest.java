@@ -21,8 +21,11 @@ public class GoogleBooksApiTest {
 
     @Test
     public void testBookTitleSuccess() throws Exception {
+
+        String isbn = "9781476735115";
+
         GoogleBooksApiDao dao = new GoogleBooksApiDao();
-        GoogleBookResponse gbResponse = dao.getGoogleBook();
+        GoogleBookResponse gbResponse = dao.getGoogleBook(isbn);
         String expectedBookName = "Wool";
         List<ItemsItem> items = gbResponse.getItems();
         ItemsItem firstItem = items.get(0);
