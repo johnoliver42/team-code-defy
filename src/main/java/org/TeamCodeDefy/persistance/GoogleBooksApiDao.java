@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 public class GoogleBooksApiDao {
 
-    GoogleBookResponse getGoogleBook() {
+    public GoogleBookResponse getGoogleBook() {
         Client client = ClientBuilder.newClient();
         //TODO read in URI from properties file
         WebTarget target =
