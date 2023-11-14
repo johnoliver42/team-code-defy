@@ -110,7 +110,7 @@ public class BookListRoutes {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addBookToReadingListByName(@PathParam("id") String id) {
         // Call the function in BookListApiService to add a book to the reading list
-        boolean added = BookListApiService.addBookToReadingListByNameService(id, book);
+        boolean added = BookListApiService.addBookToReadingListByIsbnService(id, book);
 
         if (added) {
             return Response.status(Response.Status.OK).entity("Book with ISBN " + isbn + " added to reading list " + id).build();
