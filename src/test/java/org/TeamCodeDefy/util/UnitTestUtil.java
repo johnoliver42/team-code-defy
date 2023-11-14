@@ -10,13 +10,13 @@ public final class UnitTestUtil {
 
     public static void createTestDatabase() {
         Database database = Database.getInstance();
-        database.runSQL("CreateDatabase.sql");
+        database.runSQL("ReadingList_create.sql");
     }
 
     public static void createTestData() {
         Database database = Database.getInstance();
         database.runSQL("ReadingList_Test_Data.sql");
-        database.runSQL("Book_Test_Data.sql");
+        database.runSQL("Books_Test_Data.sql");
     }
 
 }
