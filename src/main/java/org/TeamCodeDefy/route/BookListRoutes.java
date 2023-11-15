@@ -109,7 +109,7 @@ public class BookListRoutes() {
 
     /**
      * Add a book to the reading list using user provided information and reading list ID.
-     * <p>
+     *
      * The user will provide the book information as JSON in the body of the request.
      *
      * @param id the id
