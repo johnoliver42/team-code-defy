@@ -7,6 +7,12 @@ package org.TeamCodeDefy.service;
  */
 public final class BookListApiService {
 
+    public static boolean deleteReadingListService(String id) {
+    }
+
+    public static boolean addBookToReadingListByIsbnService(String id, String isbn) {
+    }
+
     private void BookListApiService() {}
 
     /**
