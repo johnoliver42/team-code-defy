@@ -62,6 +62,9 @@ public class VolumeInfo{
 	@JsonProperty("infoLink")
 	private String infoLink;
 
+	@JsonProperty("averageRating")
+	private String averageRating;
+
 	public void setIndustryIdentifiers(List<IndustryIdentifiersItem> industryIdentifiers){
 		this.industryIdentifiers = industryIdentifiers;
 	}
@@ -213,6 +216,10 @@ public class VolumeInfo{
 	public String getInfoLink(){
 		return infoLink;
 	}
+
+	public void setAverageRating(String averageRating) { this.averageRating = averageRating; }
+
+	public String getAverageRating() { return averageRating; }
 
 	@Override
  	public String toString(){
