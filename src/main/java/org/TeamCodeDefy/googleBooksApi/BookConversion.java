@@ -7,7 +7,7 @@ import java.util.List;
 /**
 * Conversion methods for Google Book Response
 * */
-public class GoogleBookConversion {
+public class BookConversion {
 
     /**
      * Map Google Book Response from Google Books API to Book Entity
