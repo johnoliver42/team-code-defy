@@ -21,6 +21,9 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
 
+        <mapping class="org.TeamCodeDefy.entities.Book"/>
+        <mapping class="org.TeamCodeDefy.entities.ReadingList"/>
+
     </session-factory>
 
 </hibernate-configuration>
