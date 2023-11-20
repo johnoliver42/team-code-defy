@@ -17,7 +17,7 @@ Represents a book retrieved from the Google Books API or added to the reading li
 ```
 
 ### ReadingList Object
-Represents an item in the user's reading list.
+Represents an item in the user's reading list. 
 
 ```json
 {
