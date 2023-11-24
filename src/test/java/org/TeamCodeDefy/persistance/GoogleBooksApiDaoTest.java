@@ -64,6 +64,8 @@ class GoogleBooksApiDaoTest {
 
     @Test
     void isbnNotProvided() {
-
+        String isbn = "";
+        GoogleBookResponse gbResponse = dao.getGoogleBook(isbn);
+        assertNull(gbResponse);
     }
 }
