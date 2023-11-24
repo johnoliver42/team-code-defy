@@ -19,11 +19,12 @@ public class GoogleBooksApiDao {
 
         GoogleBookResponse gbResponse = null;
         if (isbn.isBlank()) {
-            logger.debug("no isbn was entered.");
+            logger.info("no isbn was entered.");
         }
         else {
             String googleBooksURI = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
             String bookUri = googleBooksURI + isbn;
+            logger.debug("GOOGLE BOOKS URI: " + bookUri);
 
             Client client = ClientBuilder.newClient();
             WebTarget target = client.target(bookUri);
@@ -32,6 +33,7 @@ public class GoogleBooksApiDao {
             ObjectMapper mapper = new ObjectMapper();
             try {
                 gbResponse = mapper.readValue(response, GoogleBookResponse.class);
+                logger.debug(gbResponse);
             } catch (Exception e) {
                 logger.error("error mapping google book response to object.", e);
             }
