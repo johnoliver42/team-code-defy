@@ -31,6 +31,8 @@ public class VolumeInfo{
 
 	@JsonProperty("title")
 	private String title;
+	@JsonProperty("subtitle")
+	private String subtitle;
 
 	@JsonProperty("imageLinks")
 	private ImageLinks imageLinks;
@@ -64,6 +66,9 @@ public class VolumeInfo{
 
 	@JsonProperty("averageRating")
 	private String averageRating;
+
+	@JsonProperty("ratingsCount")
+	private int ratingsCount;
 
 	public void setIndustryIdentifiers(List<IndustryIdentifiersItem> industryIdentifiers){
 		this.industryIdentifiers = industryIdentifiers;
@@ -135,6 +140,14 @@ public class VolumeInfo{
 
 	public String getTitle(){
 		return title;
+	}
+
+	public void setSubtitle(String subtitle){
+		this.subtitle = subtitle;
+	}
+
+	public String getSubtitle(){
+		return subtitle;
 	}
 
 	public void setImageLinks(ImageLinks imageLinks){
@@ -220,6 +233,14 @@ public class VolumeInfo{
 	public void setAverageRating(String averageRating) { this.averageRating = averageRating; }
 
 	public String getAverageRating() { return averageRating; }
+
+	public int getRatingsCount() {
+		return ratingsCount;
+	}
+
+	public void setRatingsCount(int ratingsCount) {
+		this.ratingsCount = ratingsCount;
+	}
 
 	@Override
  	public String toString(){
