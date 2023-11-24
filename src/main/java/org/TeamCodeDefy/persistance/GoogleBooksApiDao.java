@@ -17,8 +17,7 @@ public class GoogleBooksApiDao {
         String uri = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
 
         Client client = ClientBuilder.newClient();
-        WebTarget target =
-                client.target(uri);
+        WebTarget target = client.target(uri);
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
 
         ObjectMapper mapper = new ObjectMapper();

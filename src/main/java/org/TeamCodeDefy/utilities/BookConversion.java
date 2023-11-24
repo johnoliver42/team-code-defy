@@ -1,6 +1,9 @@
-package org.TeamCodeDefy.googleBooksApi;
+package org.TeamCodeDefy.utilities;
 
 import org.TeamCodeDefy.entities.Book;
+import org.TeamCodeDefy.googleBooksApi.GoogleBookResponse;
+import org.TeamCodeDefy.googleBooksApi.IndustryIdentifiersItem;
+import org.TeamCodeDefy.googleBooksApi.VolumeInfo;
 
 import java.util.List;
 
@@ -12,8 +15,9 @@ public class BookConversion {
     /**
      * Map Google Book Response from Google Books API to Book Entity
      **/
-    public Book mapToBookEntity(GoogleBookResponse googleBookResponse, Book book) {
+    public Book mapToBookEntity(GoogleBookResponse googleBookResponse) { //, Book book) {
 
+        Book book = new Book();
         VolumeInfo bookInfo = googleBookResponse.getItems().get(0).getVolumeInfo();
 
         book.setTitle(bookInfo.getTitle());

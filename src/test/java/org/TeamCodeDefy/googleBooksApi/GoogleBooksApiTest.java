@@ -22,6 +22,7 @@ public class GoogleBooksApiTest {
     @Test
     public void testBookTitleSuccess() throws Exception {
 
+        //String isbnElastic = "9780307275172";
         String isbn = "9781476735115";
 
         GoogleBooksApiDao dao = new GoogleBooksApiDao();
@@ -32,4 +33,7 @@ public class GoogleBooksApiTest {
         VolumeInfo volumeInfo = firstItem.getVolumeInfo();
         assertEquals(expectedBookName, volumeInfo.getTitle());
     }
+
+    // TODO test full book
+    // TODO test when no result found
 }
