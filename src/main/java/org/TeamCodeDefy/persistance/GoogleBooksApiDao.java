@@ -3,6 +3,8 @@ package org.TeamCodeDefy.persistance;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.TeamCodeDefy.googleBooksApi.GoogleBookResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -11,13 +13,15 @@ import javax.ws.rs.core.MediaType;
 
 public class GoogleBooksApiDao {
 
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
     public GoogleBookResponse getGoogleBook(String isbn) {
 
-        //TODO read in URI from properties file
-        String uri = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+        String googleBooksURI = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+        String bookUri = googleBooksURI + isbn;
 
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(uri);
+        WebTarget target = client.target(bookUri);
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -25,9 +29,7 @@ public class GoogleBooksApiDao {
         try {
             gbResponse = mapper.readValue(response, GoogleBookResponse.class);
         } catch (Exception e) {
-            //throw new RuntimeException(e);
-            // TODO set up logging and write this to log
-            e.printStackTrace();
+            logger.error("error mapping google book response to object.", e);
         }
         return gbResponse;
     }
