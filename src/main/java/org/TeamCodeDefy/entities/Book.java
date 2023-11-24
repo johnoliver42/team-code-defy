@@ -21,7 +21,7 @@ public class Book {
     private ReadingList readingList;
 
     @Column(name = "isbn")
-    private Integer isbn;
+    private String isbn;
 
     @NotNull
     @Column(name = "isRead", nullable = false)
@@ -83,11 +83,11 @@ public class Book {
         this.readingList = readingList;
     }
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
