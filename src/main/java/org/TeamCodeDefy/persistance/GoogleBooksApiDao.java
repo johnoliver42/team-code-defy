@@ -17,19 +17,24 @@ public class GoogleBooksApiDao {
 
     public GoogleBookResponse getGoogleBook(String isbn) {
 
-        String googleBooksURI = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
-        String bookUri = googleBooksURI + isbn;
-
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(bookUri);
-        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
-
-        ObjectMapper mapper = new ObjectMapper();
         GoogleBookResponse gbResponse = null;
-        try {
-            gbResponse = mapper.readValue(response, GoogleBookResponse.class);
-        } catch (Exception e) {
-            logger.error("error mapping google book response to object.", e);
+        if (isbn.isBlank()) {
+            logger.debug("no isbn was entered.");
+        }
+        else {
+            String googleBooksURI = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+            String bookUri = googleBooksURI + isbn;
+
+            Client client = ClientBuilder.newClient();
+            WebTarget target = client.target(bookUri);
+            String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
+
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                gbResponse = mapper.readValue(response, GoogleBookResponse.class);
+            } catch (Exception e) {
+                logger.error("error mapping google book response to object.", e);
+            }
         }
         return gbResponse;
     }
