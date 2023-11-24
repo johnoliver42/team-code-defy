@@ -8,16 +8,16 @@ import org.TeamCodeDefy.googleBooksApi.VolumeInfo;
 import java.util.List;
 
 /**
-* Conversion methods for Google Book Response
+* Conversion methods for Google Book.java Response
 * */
 public class BookConversion {
 
     /**
-     * Map Google Book Response from Google Books API to Book Entity
+     * Map Google Book.java Response from Google Books API to Book.java Entity
      **/
-    public Book mapToBookEntity(GoogleBookResponse googleBookResponse) { //, Book book) {
+    public Book mapToBookEntity(GoogleBookResponse googleBookResponse , Book book) {
 
-        Book book = new Book();
+        //Book book = new Book();
         VolumeInfo bookInfo = googleBookResponse.getItems().get(0).getVolumeInfo();
 
         book.setTitle(bookInfo.getTitle());
