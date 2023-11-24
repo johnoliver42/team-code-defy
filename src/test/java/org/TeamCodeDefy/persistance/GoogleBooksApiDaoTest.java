@@ -39,6 +39,7 @@ class GoogleBooksApiDaoTest {
         assertEquals("ISBN_13", volumeInfo.getIndustryIdentifiers().get(0).getType());
         assertEquals(isbn, volumeInfo.getIndustryIdentifiers().get(0).getIdentifier());
     }
+
     @Test
     void getBookWithMultipleAuthorsSuccess() {
         String isbn = "9780486415871";
@@ -56,10 +57,11 @@ class GoogleBooksApiDaoTest {
         assertEquals(isbn, volumeInfo.getIndustryIdentifiers().get(0).getIdentifier());
     }
 
-
     @Test
     void isbnNotFound() {
-
+        String isbn = "123456789";
+        GoogleBookResponse gbResponse = dao.getGoogleBook(isbn);
+        assertEquals(0, gbResponse.getTotalItems());
     }
 
     @Test
