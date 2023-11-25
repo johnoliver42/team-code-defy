@@ -2,7 +2,9 @@ package org.TeamCodeDefy.service;
 
 import org.TeamCodeDefy.entities.Book;
 import org.TeamCodeDefy.entities.ReadingList;
+import org.TeamCodeDefy.googleBooksApi.BookConversion;
 import org.TeamCodeDefy.persistance.GenericDao;
+import org.TeamCodeDefy.persistance.GoogleBooksApiDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +25,7 @@ public final class BookListApiService {
      * @param listName the list name
      * @return ReadingList
      */
-    public static ReadingList createReadingListService(String listName) throws IllegalArgumentException {
+    public static ReadingList createReadingList(String listName) throws IllegalArgumentException {
 
         // Trim the list name to a max of 100 characters.
         listName = listName.trim();
@@ -42,7 +44,7 @@ public final class BookListApiService {
         return readingListDao.getById(readingListId);
     }
 
-    public static boolean deleteReadingListService(int id) {
+    public static boolean deleteReadingList(int id) {
         GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
         ReadingList readingList = readingListDao.getById(id);
 
@@ -54,13 +56,30 @@ public final class BookListApiService {
         }
     }
 
-    public static ReadingList getReadingListByIdService(int id) {
+    public static ReadingList getReadingListById(int readingListId) {
         GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
-        return readingListDao.getById(id);
+        return readingListDao.getById(readingListId);
     }
 
 
-    public static boolean addBookToReadingListByIsbnService(String id, String isbn) {
+    public static boolean addBookToReadingListByIsbn(String readingListId, String isbn) {
+
+        // Get reading list from database by readingListId
+        ReadingList readingList = getReadingListById(Integer.parseInt(readingListId));
+
+        // Get book from Google Books API
+        BookConversion bookConversion = new BookConversion();
+        GoogleBooksApiDao googleBooksApiDao = new GoogleBooksApiDao();
+        Book book = bookConversion.mapToBookEntity(googleBooksApiDao.getGoogleBook(isbn), new Book());
+
+        // Add book to reading list
+        readingList.getBooks().add(book);
+
+
+        // Update reading list in database
+        updateReadingList(readingList);
+
+
         return false;
     }
 
@@ -71,7 +90,7 @@ public final class BookListApiService {
     public static boolean updateReadingListOrder(int readingListId, int bookId, int newPosition) {
 
         // Get readingList from database
-        ReadingList readingList = getReadingListByIdService(readingListId);
+        ReadingList readingList = getReadingListById(readingListId);
 
         // Get the book from the readingList using the bookId
         Book book = readingList.getBooks().stream()
@@ -115,7 +134,7 @@ public final class BookListApiService {
     public static boolean updateLastPageRead(int readingListId, int bookId, int lastPageRead) {
 
         // Get readingList from database
-        ReadingList readingList = getReadingListByIdService(readingListId);
+        ReadingList readingList = getReadingListById(readingListId);
 
         // Find the book in the reading list with the given bookId
         Book book = readingList.getBooks().stream()
