@@ -7,6 +7,9 @@ public class Pdf{
 	@JsonProperty("isAvailable")
 	private boolean isAvailable;
 
+	@JsonProperty("acsTokenLink")
+	private String acsTokenLink;
+
 	public void setIsAvailable(boolean isAvailable){
 		this.isAvailable = isAvailable;
 	}

@@ -1,31 +1,38 @@
-package org.TeamCodeDefy.googleBooksApi;
+package org.TeamCodeDefy.utilities;
 
 import org.TeamCodeDefy.entities.Book;
+import org.TeamCodeDefy.googleBooksApi.GoogleBookResponse;
+import org.TeamCodeDefy.googleBooksApi.IndustryIdentifiersItem;
+import org.TeamCodeDefy.googleBooksApi.VolumeInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 /**
-* Conversion methods for Google Book Response
+* Conversion methods for Google Book.java Response
 * */
 public class BookConversion {
 
+    private final Logger logger = LogManager.getLogger(this.getClass());
     /**
-     * Map Google Book Response from Google Books API to Book Entity
+     * Map Google Book.java Response from Google Books API to Book.java Entity
      **/
     public Book mapToBookEntity(GoogleBookResponse googleBookResponse, Book book) {
 
+        //Book book = new Book();
         VolumeInfo bookInfo = googleBookResponse.getItems().get(0).getVolumeInfo();
+        logger.debug("VOLUME INFO: " + bookInfo);
 
         book.setTitle(bookInfo.getTitle());
         book.setAuthor(joinAuthors(bookInfo.getAuthors()));
-        book.setIsbn(Integer.parseInt(getIsbn(bookInfo.getIndustryIdentifiers())));
+        book.setIsbn(getIsbn(bookInfo.getIndustryIdentifiers()));
         book.setDescription(bookInfo.getDescription());
         book.setPublisher(bookInfo.getPublisher());
         book.setLanguage(bookInfo.getLanguage());
         book.setPageCount(bookInfo.getPageCount());
         book.setThumbnailLink(bookInfo.getImageLinks().getThumbnail());
         book.setAverageRating(bookInfo.getAverageRating());
-
         return book;
     }
 
@@ -43,7 +50,7 @@ public class BookConversion {
                 isbn10 = identifier.getIdentifier();
             }
         }
-
+        logger.debug("ISBN13: " + isbn13 + ", ISBN10: " + isbn10);
         // Prefer ISBN-13 if available, otherwise use ISBN-10
         return (isbn13 != null) ? isbn13 : isbn10;
     }
