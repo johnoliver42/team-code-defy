@@ -28,4 +28,16 @@ class BookConversionTest {
         assertEquals("Leonard Mlodinow", book.getAuthor());
         assertEquals(isbn, book.getIsbn());
     }
+
+    @Test
+    void convertBookMultipleAuthors() {
+        String isbn = "9780486415871";
+        GoogleBookResponse gbResponse = dao.getGoogleBook(isbn);
+        Book book = new Book();
+        book = converter.mapToBookEntity(gbResponse, book);
+
+        assertEquals("Crime and Punishment", book.getTitle());
+        assertEquals("Fyodor Dostoyevsky;Constance Garnett", book.getAuthor());
+        assertEquals(isbn, book.getIsbn());
+    }
 }
