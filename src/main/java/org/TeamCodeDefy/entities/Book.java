@@ -3,6 +3,7 @@ package org.TeamCodeDefy.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Hibernate entity for Book table.
@@ -16,7 +17,7 @@ public class Book {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ReadingList_id", nullable = false)
     private ReadingList readingList;
 
@@ -33,7 +34,7 @@ public class Book {
 
     @NotNull
     @Column(name = "readingListSequenceNumber", nullable = false)
-    private Integer readingListSequenceNumber;
+    private Integer readingListSequenceNumber = null;
 
     @Size(max = 100)
     @Column(name = "publisher", length = 100)
@@ -179,4 +180,16 @@ public class Book {
         this.thumbnailLink = thumbnailLink;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

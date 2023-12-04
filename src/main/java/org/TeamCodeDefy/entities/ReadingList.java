@@ -1,13 +1,14 @@
 package org.TeamCodeDefy.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import org.TeamCodeDefy.persistance.ReadingListIdGenerator;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -18,6 +19,8 @@ import java.util.Set;
 public class ReadingList {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(generator = ReadingListIdGenerator.generatorName)
+    @GenericGenerator(name = ReadingListIdGenerator.generatorName, strategy = "org.TeamCodeDefy.persistance.ReadingListIdGenerator")
     private Integer id;
 
     @Size(max = 100)
@@ -26,10 +29,10 @@ public class ReadingList {
     private String listName;
 
     @NotNull
-    @Column(name = "createDate", nullable = false)
-    private Instant createDate;
+    @Column(name = "createDate")
+    private Instant createDate = null;
 
-    @OneToMany(mappedBy = "readingList")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "readingList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books = new LinkedHashSet<>();
 
     public Integer getId() {
@@ -62,6 +65,19 @@ public class ReadingList {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReadingList that = (ReadingList) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }
