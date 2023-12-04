@@ -27,6 +27,13 @@ public class GenericDao<T> {
         this.type = type;
     }
 
+    public Boolean exists(int id) {
+        Session session = getSession();
+        T entity = (T)session.get(type, id);
+        session.close();
+        return entity != null;
+    }
+
     /**
      * Gets an entity by id
      * @param id entity id to search by
