@@ -14,8 +14,8 @@ class GenericDaoTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    private GenericDao genericBookDao = new GenericDao(Book.class);
-    private GenericDao genericReadingListDao = new GenericDao(ReadingList.class);
+    private final GenericDao<Book> genericBookDao = new GenericDao<>(Book.class);
+    private final GenericDao<ReadingList> genericReadingListDao = new GenericDao<>(ReadingList.class);
 
 
 
