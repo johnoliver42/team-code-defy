@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS ReadingList;
 CREATE TABLE Books (
     id int  NOT NULL,
     ReadingList_id int  NOT NULL,
-    isbn int  NULL,
+    isbn varchar(20)  NULL,
     isRead bool  NOT NULL DEFAULT false,
     lastPageRead int  NOT NULL DEFAULT 0,
     readingListSequenceNumber int  NOT NULL,
