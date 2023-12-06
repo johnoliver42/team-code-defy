@@ -14,7 +14,8 @@ import java.util.Objects;
 public class Book {
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id = null;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -30,7 +31,7 @@ public class Book {
 
     @NotNull
     @Column(name = "lastPageRead", nullable = false)
-    private Integer lastPageRead;
+    private Integer lastPageRead = 0;
 
     @NotNull
     @Column(name = "readingListSequenceNumber", nullable = false)
