@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.jupiter.api.Assertions.*;
+import static  org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Unit tests for BookListApiService
@@ -25,8 +27,7 @@ class BookListApiServiceTest {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
-    private GenericDao<Book> genericBookDao = new GenericDao<>(Book.class);
-    private GenericDao<ReadingList> genericReadingListDao = new GenericDao<>(ReadingList.class);
+
 
     @BeforeEach
     void setUp() {
@@ -94,6 +95,152 @@ class BookListApiServiceTest {
 //        // Make sure the book is in the readingList and that it is the last book in the readingList
 //        assertTrue(newReadingList.getBooks().contains(newBook));
 //        assertEquals(originalSize + 1, newReadingList.getBooks().size());
+
+    }
+
+    @Test
+    void deleteReadingList() {
+        logger.info("Testing deleteReadingList");
+        // Get the reading list to delete
+        ReadingList readingList = BookListApiService.getReadingListById(15928);
+        // Delete the reading list
+        BookListApiService.deleteReadingList(readingList.getId());
+        // Make sure the reading list is deleted
+        assertNull(BookListApiService.getReadingListById(readingList.getId()));
+        assertThat(BookListApiService.getReadingListById(15928), nullValue());
+    }
+
+    @Test
+    void getReadingListById() {
+        logger.info("Testing getReadingListById");
+        ReadingList readingList = BookListApiService.getReadingListById(15928);
+        assertEquals("Coralie Daniel DVM", readingList.getListName());
+    }
+
+    @Test
+    void addBookToReadingListByIsbn() {
+        // Get a reading list to add the book to
+        ReadingList readingListBefore = BookListApiService.getReadingListById(15928);
+        // Get the book by ISBN from google books
+        BookListApiService.addBookToReadingListByIsbn(readingListBefore.getId(), "9780486415871");
+        // Get the reading list after the book is added
+        ReadingList readingListAfter = BookListApiService.getReadingListById(15928);
+        // Make sure the book is in the reading list
+        assertEquals(readingListBefore.getBooks().size() + 1, readingListAfter.getBooks().size());
+
+    }
+
+    @Test
+    void removeBookFromReadingList() {
+        // Get the reading list to remove the book from
+        ReadingList readingListBefore = BookListApiService.getReadingListById(15928);
+        BookListApiService.removeBookFromReadingList(readingListBefore.getId(), 104620);
+        ReadingList readingListAfter = BookListApiService.getReadingListById(15928);
+        assertEquals(readingListBefore.getBooks().size() - 1, readingListAfter.getBooks().size());
+    }
+
+    @Test
+    void updateReadingListOrder() {
+        // Get the reading list to update
+        ReadingList readingListBefore = BookListApiService.getReadingListById(15928);
+        // Get the book to update
+        Book bookToUpdate = readingListBefore.getBooks().stream()
+                .filter(book -> book.getReadingListSequenceNumber() == 2)
+                .findFirst()
+                .orElse(null);
+
+        // Update the reading list
+        BookListApiService.updateReadingListOrder(readingListBefore.getId(), bookToUpdate.getId(),4);
+        // Get the reading list after the update
+        ReadingList readingListAfter = BookListApiService.getReadingListById(15928);
+        // Iterate over the book list and make sure the book is in the correct position
+        for (Book book : readingListAfter.getBooks()) {
+            if (Objects.equals(book.getId(), bookToUpdate.getId())) {
+                assertEquals(4, (int)book.getReadingListSequenceNumber());
+            }
+        }
+    }
+
+    @Test
+    void setBookReadStatus() {
+        // Get the reading list to update
+        ReadingList readingListBefore = BookListApiService.getReadingListById(15928);
+        // Get the book to update
+        Book bookToUpdate = readingListBefore.getBooks().stream()
+                .filter(book -> book.getReadingListSequenceNumber() == 2)
+                .findFirst()
+                .orElse(null);
+        // Update the reading list
+        BookListApiService.setBookReadStatus(readingListBefore.getId(), bookToUpdate.getId(), true);
+        // Get the reading list after the update
+        ReadingList readingListAfter = BookListApiService.getReadingListById(15928);
+        // Iterate over the book list and make sure the book is in the correct position
+        for (Book book : readingListAfter.getBooks()) {
+            if (Objects.equals(book.getId(), bookToUpdate.getId())) {
+                assertTrue(book.getIsRead());
+            }
+        }
+    }
+
+    @Test
+    void getBook() {
+        // Get a book from the database
+        Book book = BookListApiService.getBook(104620);
+        // Make sure the book is not null
+        assertNotNull(book);
+    }
+
+    @Test
+    void updateLastPageRead() {
+        // Get the reading list to update
+        ReadingList readingListBefore = BookListApiService.getReadingListById(15928);
+        // Get the book to update
+        Book bookToUpdate = readingListBefore.getBooks().stream()
+                .filter(book -> book.getId() == 104620)
+                .findFirst()
+                .orElse(null);
+        // Update the last page read
+        BookListApiService.updateLastPageRead(readingListBefore.getId(), bookToUpdate.getId(), 100);
+        // Get the reading list after the update
+        ReadingList readingListAfter = BookListApiService.getReadingListById(15928);
+        // Iterate over the book list and make sure the book is in the correct position
+        for (Book book : readingListAfter.getBooks()) {
+            if (Objects.equals(book.getId(), bookToUpdate.getId())) {
+                assertEquals(100, (int)book.getLastPageRead());
+            }
+        }
+    }
+
+    @Test
+    void updateBook() {
+        // Get a reading list and a book to update
+        ReadingList readingListBefore = BookListApiService.getReadingListById(15928);
+        Book bookToUpdate = readingListBefore.getBooks().stream()
+                .filter(book -> book.getId() == 104620)
+                .findFirst()
+                .orElse(null);
+        // Update the book
+        bookToUpdate.setAuthor("Test Author");
+        bookToUpdate.setTitle("Test Title");
+        bookToUpdate.setPageCount(100);
+        bookToUpdate.setAverageRating("5");
+        bookToUpdate.setDescription("Test Description");
+        bookToUpdate.setThumbnailLink("Test Thumbnail Link");
+        BookListApiService.updateBook(readingListBefore.getId(),bookToUpdate);
+        // Get the reading list after the update
+        ReadingList readingListAfter = BookListApiService.getReadingListById(15928);
+        // Iterate over the book list and make sure the book is in the correct position
+        for (Book book : readingListAfter.getBooks()) {
+            if (Objects.equals(book.getId(), bookToUpdate.getId())) {
+                assertEquals("Test Author", book.getAuthor());
+                assertEquals("Test Title", book.getTitle());
+                assertEquals(100, (int)book.getPageCount());
+                assertEquals("5", book.getAverageRating());
+                assertEquals("Test Description", book.getDescription());
+                assertEquals("Test Thumbnail Link", book.getThumbnailLink());
+            }
+        }
+
 
     }
 }
