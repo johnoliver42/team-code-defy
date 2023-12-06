@@ -81,6 +81,9 @@ public final class BookListApiService {
         // Get reading list so that we can set the proper sequence number
         ReadingList readingList = getReadingListById(readingListId);
 
+        // Set the readingList id for the book
+        book.setReadingList(readingList);
+
         // Add the book to the reading list
         readingList = addBookToReadingList(readingList, book);
 
@@ -91,6 +94,19 @@ public final class BookListApiService {
     }
 
     public static boolean removeBookFromReadingList(int readingListId, int bookId) {
+        // Get the reading list
+        ReadingList readingList = getReadingListById(readingListId);
+        // Iterate over the books in the readingList and remove the book
+        for (Book book : readingList.getBooks()) {
+            if (book.getId() == bookId) {
+                readingList.getBooks().remove(book);
+                // Re-order the books in the readingList
+                reOrderReadingListBookSequence(readingList);
+                // Update the readingList in the database
+                updateReadingList(readingList);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -215,6 +231,17 @@ public final class BookListApiService {
     }
 
     public static boolean setBookReadStatus(int readingListId, int bookId, boolean readStatus) {
+        // Get the reading list
+        ReadingList readingList = getReadingListById(readingListId);
+        // Iterate over the books in the readingList and update the book read status
+        for (Book book : readingList.getBooks()) {
+            if (book.getId() == bookId) {
+                book.setIsRead(readStatus);
+                // Update the readingList in the database
+                updateReadingList(readingList);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -239,6 +266,8 @@ public final class BookListApiService {
         for (Book book : readingList.getBooks()) {
             if (book.getId() == bookId) {
                 book.setLastPageRead(lastPageRead);
+                // Update the readingList in the database
+                updateReadingList(readingList);
                 return true;
             }
         }
@@ -251,7 +280,7 @@ public final class BookListApiService {
         // Get readingList from database
         ReadingList readingList = getReadingListById(readingListId);
         addBookToReadingList(readingList, book);
-
+        reOrderReadingListBookSequence(readingList);
         // Update the readingList in the database
         updateReadingList(readingList);
         return true;
