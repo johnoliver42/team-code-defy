@@ -286,6 +286,14 @@ public final class BookListApiService {
         return true;
     }
 
+    public static void addBookToReadingListByName(int readingListId, Book newBook) {
+        // Get the reading list
+        ReadingList readingList = getReadingListById(readingListId);
+        addBookToReadingList(readingList, newBook);
+        reOrderReadingListBookSequence(readingList);
+        // Update the readingList in the database
+        updateReadingList(readingList);
+    }
 }
 
 
