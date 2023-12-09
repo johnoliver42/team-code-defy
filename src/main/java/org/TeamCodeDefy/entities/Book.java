@@ -1,5 +1,7 @@
 package org.TeamCodeDefy.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,59 +14,74 @@ import java.util.Objects;
 @Entity
 @Table(name = "Books")
 public class Book {
+
+    @JsonProperty("id")
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id = null;
 
+    @JsonProperty("readingList")
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ReadingList_id", nullable = false)
     private ReadingList readingList;
 
+    @JsonProperty("isbn")
     @Column(name = "isbn")
     private String isbn;
 
+    @JsonProperty("isRead")
     @NotNull
     @Column(name = "isRead", nullable = false)
     private Boolean isRead = false;
 
+    @JsonProperty("lastPageRead")
     @NotNull
     @Column(name = "lastPageRead", nullable = false)
     private Integer lastPageRead = 0;
 
+    @JsonProperty("readingListSequenceNumber")
     @NotNull
     @Column(name = "readingListSequenceNumber", nullable = false)
     private Integer readingListSequenceNumber = null;
 
+    @JsonProperty("publisher")
     @Size(max = 100)
     @Column(name = "publisher", length = 100)
     private String publisher;
 
+    @JsonProperty("language")
     @Size(max = 50)
     @Column(name = "language", length = 50)
     private String language;
 
+    @JsonProperty("author")
     @Size(max = 100)
     @Column(name = "author", length = 100)
     private String author;
 
+    @JsonProperty("title")
     @Size(max = 100)
     @NotNull
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
+    @JsonProperty("pageCount")
     @Column(name = "pageCount")
     private Integer pageCount;
 
+    @JsonProperty("averageRating")
     @Size(max = 4)
     @Column(name = "averageRating", length = 4)
     private String averageRating;
 
+    @JsonProperty("description")
     @Lob
     @Column(name = "description")
     private String description;
 
+    @JsonProperty("thumbnailLink")
     @Lob
     @Column(name = "thumbnailLink")
     private String thumbnailLink;
