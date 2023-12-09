@@ -1,8 +1,9 @@
 package org.TeamCodeDefy.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.TeamCodeDefy.persistance.ReadingListIdGenerator;
 import org.hibernate.annotations.GenericGenerator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,11 +34,11 @@ public class ReadingList {
 
     @JsonProperty("createDate")
     @NotNull
-    @Column(name = "createDate")
-    private Instant createDate = null;
+    @Column(name = "createDate", nullable = false)
+    private Instant createDate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "readingList", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonProperty("books")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "readingList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books = new LinkedHashSet<>();
 
     public Integer getId() {
@@ -70,19 +71,6 @@ public class ReadingList {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReadingList that = (ReadingList) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 }
