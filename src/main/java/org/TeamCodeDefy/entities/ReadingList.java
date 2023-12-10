@@ -3,10 +3,12 @@ package org.TeamCodeDefy.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.TeamCodeDefy.persistance.ReadingListIdGenerator;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -34,8 +36,9 @@ public class ReadingList {
 
     @JsonProperty("createDate")
     @NotNull
+    @CreationTimestamp
     @Column(name = "createDate", nullable = false)
-    private Instant createDate;
+    private Timestamp createDate;
 
     @JsonProperty("books")
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "readingList", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -57,11 +60,11 @@ public class ReadingList {
         this.listName = listName;
     }
 
-    public Instant getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Instant createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
