@@ -13,11 +13,11 @@ DROP TABLE IF EXISTS ReadingList;
 -- Table: Books
 CREATE TABLE Books (
     id int  auto_increment NOT NULL,
-    ReadingList_id int  NOT NULL,
+    ReadingList_id int NOT NULL,
     isbn varchar(20)  NULL,
     isRead bool  NOT NULL DEFAULT false,
     lastPageRead int  NOT NULL DEFAULT 0,
-    readingListSequenceNumber int  NOT NULL,
+    readingListSequenceNumber int,
     publisher varchar(100)  NULL,
     language varchar(50)  NULL,
     author varchar(100)  NULL,
