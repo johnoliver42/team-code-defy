@@ -42,8 +42,7 @@ public class Book {
     private Integer lastPageRead = 0;
 
     @JsonProperty("readingListSequenceNumber")
-    @NotNull
-    @Column(name = "readingListSequenceNumber", nullable = false)
+    @Column(name = "readingListSequenceNumber")
     private Integer readingListSequenceNumber = null;
 
     @JsonProperty("publisher")
