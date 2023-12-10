@@ -25,6 +25,9 @@ public final class BookListApiService {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
+    private static final GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
+    private static final GenericDao<Book> bookDao = new GenericDao<>(Book.class);
+
     private BookListApiService() {}
 
     /**
@@ -46,14 +49,14 @@ public final class BookListApiService {
         readingList.setListName(listName);
 
         // Insert the new reading list into the database.
-        GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
+
         int readingListId = readingListDao.insert(readingList);
 
         return readingListDao.getById(readingListId);
     }
 
     public static boolean deleteReadingList(int id) {
-        GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
+
         ReadingList readingList = readingListDao.getById(id);
 
         if (readingList != null) {
@@ -65,7 +68,7 @@ public final class BookListApiService {
     }
 
     public static ReadingList getReadingListById(int readingListId) {
-        GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
+
         return readingListDao.getById(readingListId);
     }
 
@@ -226,7 +229,7 @@ public final class BookListApiService {
      * @param readingList
      */
     private static void updateReadingList(ReadingList readingList) {
-        GenericDao<ReadingList> readingListDao = new GenericDao<>(ReadingList.class);
+
         readingListDao.saveOrUpdate(readingList);
     }
 
@@ -253,7 +256,7 @@ public final class BookListApiService {
      */
     public static Book getBook(int bookId) {
         // Get book from database
-        GenericDao<Book> bookDao = new GenericDao<>(Book.class);
+
         return bookDao.getById(bookId);
     }
 
@@ -286,13 +289,26 @@ public final class BookListApiService {
         return true;
     }
 
-    public static void addBookToReadingListByName(int readingListId, Book newBook) {
+    public static Book addBookToReadingListByName(int readingListId, Book newBook) {
+        Book addedBook = null;
         // Get the reading list
         ReadingList readingList = getReadingListById(readingListId);
-        addBookToReadingList(readingList, newBook);
-        reOrderReadingListBookSequence(readingList);
-        // Update the readingList in the database
+        // Insert the book into the database and get the book id
+        newBook.setReadingList(readingList);
+        int bookId = bookDao.insert(newBook);
+        // Get the book from the database
+        Book book = bookDao.getById(bookId);
+        // Add the book to the reading list
+        readingList = addBookToReadingList(readingList, book);
+        // Update the reading list in the database
         updateReadingList(readingList);
+        // Iterate over the books in the readingList and get the book that was just added
+        for (Book b : readingList.getBooks()) {
+            if (b.getId() == bookId) {
+                addedBook = b;
+            }
+        }
+        return addedBook;
     }
 }
 
