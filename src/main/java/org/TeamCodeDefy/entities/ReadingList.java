@@ -1,5 +1,6 @@
 package org.TeamCodeDefy.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.TeamCodeDefy.persistance.ReadingListIdGenerator;
 import org.hibernate.annotations.GenericGenerator;
@@ -41,6 +42,7 @@ public class ReadingList {
     private Timestamp createDate;
 
     @JsonProperty("books")
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "readingList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books = new LinkedHashSet<>();
 

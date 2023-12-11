@@ -1,5 +1,6 @@
 package org.TeamCodeDefy.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Book {
     private Integer id = null;
 
     @JsonProperty("readingList")
+    @JsonBackReference
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ReadingList_id", nullable = false)
