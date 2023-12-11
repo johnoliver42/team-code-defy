@@ -2,14 +2,12 @@
 @getReadingListId = 15928
 GET http://localhost:8080/ReadingList_war/reading-list/{{getReadingListId}}
 
+###
+@deleteReadingListId = 15928
+DELETE http://localhost:8080/ReadingList_war/reading-list/{{deleteReadingListId}}/delete-reading-list
 
 ###
 PUT http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/update-book/{{bookId}}
 
 ###
 POST http://localhost/reading-list/{{id}}/add-book-by-name
-Content-Type: application/json
-
-{
-
-}
