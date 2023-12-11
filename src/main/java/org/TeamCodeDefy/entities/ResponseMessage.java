@@ -2,14 +2,14 @@ package org.TeamCodeDefy.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ErrorResponse {
+public class ResponseMessage {
 
     @JsonProperty("message")
     private String message;
     @JsonProperty("type")
     private String type;
 
-    public ErrorResponse(String type, String message) {
+    public ResponseMessage(String type, String message) {
         this.type = type;
         this.message = message;
     }
