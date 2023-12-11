@@ -1,0 +1,15 @@
+###
+@getReadingListId = 15928
+GET http://localhost:8080/ReadingList_war/reading-list/{{getReadingListId}}
+
+
+###
+PUT http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/update-book/{{bookId}}
+
+###
+POST http://localhost/reading-list/{{id}}/add-book-by-name
+Content-Type: application/json
+
+{
+
+}
