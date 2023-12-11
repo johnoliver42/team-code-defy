@@ -19,6 +19,7 @@ public class BookListApp extends Application {
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> routes = new HashSet<>();
         routes.add(BookListRoutes.class);
+        routes.add(RootUrl.class);
         return routes;
     }
 }
