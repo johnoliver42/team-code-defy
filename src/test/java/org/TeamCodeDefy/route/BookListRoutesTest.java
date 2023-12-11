@@ -1,32 +1,45 @@
 package org.TeamCodeDefy.route;
 
-import org.TeamCodeDefy.entities.Book;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.TeamCodeDefy.entities.ReadingList;
-import org.TeamCodeDefy.service.BookListApiService;
+import org.TeamCodeDefy.util.UnitTestUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import javax.ws.rs.core.Response;
+import java.lang.invoke.MethodHandles;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BookListRoutesTest {
-  private BookListRoutes bookListRoutes;
 
-  @Before
-  public void setUp() {
-      bookListRoutes = new BookListRoutes();
+    private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
+    private BookListRoutes bookListRoutes;
 
-  }
+    @Before
+    public void setUp() {
+        bookListRoutes = new BookListRoutes();
+        UnitTestUtil.createTestDatabase();
+        UnitTestUtil.createTestData();
+    }
 
     @Test
     public void createReadingListSuccess() {
-//      String listName = "My Reading List";
-//      ReadingList readingList = BookListApiService.createReadingList(listName);
-//
-//      assertNotNull(readingList);
-//      assertEquals(listName, readingList.getListName());
-   }
+        try (Response response = bookListRoutes.createReadingList("Test List Name");) {
+            String jsonResponse =  (String)response.getEntity();
+            assertNotNull(jsonResponse);
+            // Convert the response json to a ReadingList object
+            ObjectMapper mapper = new ObjectMapper();
+            ReadingList readingList = null;
+            readingList = mapper.readValue(jsonResponse, ReadingList.class);
+            assertNotNull(readingList);
+            assertEquals("Test List Name", readingList.getListName());
+        } catch (Exception e) {
+            logger.error(e);
+        }
+    }
 
     @Test
     public void deleteReadingListSuccess() {

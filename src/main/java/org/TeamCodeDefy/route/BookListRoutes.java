@@ -23,9 +23,6 @@ public class BookListRoutes {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-
-
-
     /**
      * Create a new BookList that a user can add books to.
      *
@@ -65,7 +62,7 @@ public class BookListRoutes {
      * @param id the id
      * @return Success or failure message.
      */
-    @GET
+    @DELETE
     @Path("{id}/delete-reading-list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteReadingList(@PathParam("id") String id) {
