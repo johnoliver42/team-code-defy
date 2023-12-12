@@ -1,52 +1,120 @@
 package org.TeamCodeDefy.route;
 
-import org.junit.jupiter.api.Test;
+import org.TeamCodeDefy.entities.Book;
+import org.TeamCodeDefy.entities.ReadingList;
+import org.TeamCodeDefy.service.BookListApiService;
+import org.junit.Before;
+import org.junit.Test;
+import javax.ws.rs.core.Response;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BookListRoutesTest {
+public class BookListRoutesTest {
+  private BookListRoutes bookListRoutes;
+  private BookListApiService bookListApiService;
+
+  @Before
+  public void setUp() {
+      bookListRoutes = new BookListRoutes();
+      bookListApiService = new BookListApiService();
+  }
 
     @Test
-    void createReadingListSuccess() {
+    public void createReadingListSuccess() {
+      String listName = "My Reading List";
+      ReadingList readingList = BookListApiService.createReadingListService(listName);
+
+      assertNotNull(readingList);
+      assertEquals(listName, readingList.getListName());
+   }
+
+    @Test
+    public void deleteReadingListSuccess() {
+        int listNameToBeDeleted = 15928;
+        boolean response = BookListApiService.deleteReadingListService(listNameToBeDeleted);
+
+        assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void deleteReadingListSuccess() {
+    public void getReadingListSuccess() {
+          int id = 15928;
+          ReadingList readingList = BookListApiService.getReadingListByIdService(id);
+          assertNotNull(readingList);
     }
 
     @Test
-    void getReadingListSuccess() {
+    public void addBookToReadingListByIsbnSuccess() {
+        int listId = 15928;
+        String isbn = "1234567890";
+        boolean response = BookListApiService.addBookToReadingListByIsbnService(String.valueOf(listId), isbn);
+
+        assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void addBookToReadingListByIsbnSuccess() {
+    public void addBookToReadingListByNameSuccess() {
+        int listId = 15928;
+        String bookName = "Total tertiary support";
+        boolean response = BookListApiService.addBookToReadingListByName(listId, bookName);
+
+        assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void addBookToReadingListByNameSuccess() {
+    public void removeBookFromReadingListSuccess() {
+      int listId = 15928;
+      String bookIdToRemove = "2673";
+
+      boolean response = BookListApiService.removeBookFromReadingListService(listId, bookIdToRemove);
+      assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void removeBookFromReadingListSuccess() {
+    public void updateBookReadingOrderSuccess() {
+      int listId = 15928;
+      String bookId = "1028";
+      int newOrder = 1;
+
+      boolean response = BookListApiService.updateBookReadingOrder(listId, bookId, newOrder);
+      assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void updateBookReadingOrderSuccess() {
+    public void setBookReadStatusSuccess() {
+      String bookId = "1028";
+      boolean isRead = true;
+
+      boolean response = BookListApiService.setBookReadStatus(bookId, isRead);
+      assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void setBookReadStatusSuccess() {
+    public void getBookSuccess() {
+        String bookId = "1028";
+        Book book = BookListApiService.getBookById(bookId);
+
+        assertNotNull(book);
+        assertEquals(bookId, book.getId());
     }
 
     @Test
-    void getBookSuccess() {
+    public void updateLastPageReadSuccess() {
+        int id = 123;
+        int bookId = 1028;
+        int lastPageRead = 438;
+
+        boolean response = BookListApiService.updateLastPageRead(id,bookId, lastPageRead);
+        assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 
     @Test
-    void updateLastPageReadSuccess() {
-    }
+    public void updateBookSuccess() {
+        int newId = 123;
+        int bookId = 1028;
 
-    @Test
-    void updateBookSuccess() {
+        boolean response = BookListApiService.updateBook(newId, bookId);
+        assertEquals(Response.Status.OK.getStatusCode(), response);
     }
 }
