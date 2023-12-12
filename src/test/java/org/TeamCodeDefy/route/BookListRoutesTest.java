@@ -1,7 +1,9 @@
 package org.TeamCodeDefy.route;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.TeamCodeDefy.entities.Book;
 import org.TeamCodeDefy.entities.ReadingList;
+import org.TeamCodeDefy.service.BookListApiService;
 import org.TeamCodeDefy.util.UnitTestUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +13,7 @@ import javax.ws.rs.core.Response;
 import java.lang.invoke.MethodHandles;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BookListRoutesTest {
@@ -43,35 +46,86 @@ public class BookListRoutesTest {
 
     @Test
     public void deleteReadingListSuccess() {
-//        int listNameToBeDeleted = 15928;
-//        boolean response = BookListApiService.deleteReadingList(listNameToBeDeleted);
-//
-//        assertEquals(Response.Status.OK.getStatusCode(), response);
+        String id = "15928";
+        try (Response response = bookListRoutes.deleteReadingList(id);) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Try to get the deleted reading list from the database
+            ReadingList readingList = BookListApiService.getReadingListById(Integer.parseInt(id));
+            assertNull(readingList);
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     @Test
     public void getReadingListSuccess() {
-//          int id = 15928;
-//          ReadingList readingList = BookListApiService.getReadingListById(id);
-//          assertNotNull(readingList);
+          String id = "15928";
+            try (Response response = bookListRoutes.getReadingList(id);) {
+                String jsonResponse =  (String)response.getEntity();
+                assertNotNull(jsonResponse);
+                // Convert the response json to a ReadingList object
+                ObjectMapper mapper = new ObjectMapper();
+                ReadingList readingList = null;
+                readingList = mapper.readValue(jsonResponse, ReadingList.class);
+                assertNotNull(readingList);
+                assertEquals(Integer.parseInt(id), (int)readingList.getId());
+            } catch (Exception e) {
+                logger.error(e);
+            }
     }
 
     @Test
     public void addBookToReadingListByIsbnSuccess() {
-//        int listId = 15928;
-//        String isbn = "1234567890";
-//        boolean response = BookListApiService.addBookToReadingListByIsbn(listId, isbn);
-//
-//        assertEquals(Response.Status.OK.getStatusCode(), response);
+
+        // Use bookListRoutes to add a book to a reading list using the isbn
+        try (Response response = bookListRoutes.addBookToReadingListByIsbn("15928", "9780062316097");) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the response
+            String jsonResponse =  (String)response.getEntity();
+            ObjectMapper mapper = new ObjectMapper();
+            Book book = mapper.readValue(jsonResponse, Book.class);
+            assertNotNull(book);
+            assertEquals("9780062316097", book.getIsbn());
+            Book bookFromDb = BookListApiService.getBook(book.getId());
+            assertNotNull(bookFromDb);
+            assertEquals(book.getReadingList().getId(), bookFromDb.getReadingList().getId());
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     @Test
     public void addBookToReadingListByNameSuccess() {
-//        int listId = 15928;
-//        String bookName = "Total tertiary support";
-//        boolean response = BookListApiService.addBookToReadingListByName(listId, bookName);
-//
-//        assertEquals(Response.Status.OK.getStatusCode(), response);
+        // Get a book from the database to use for testing
+        Book book = BookListApiService.getBook(1028);
+        book.setId(null);
+        book.setIsbn(null);
+
+        // Convert the book to json
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonBook = null;
+        try {
+            jsonBook = mapper.writeValueAsString(book);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
+        // Use bookListRoutes to add a book to a reading list using the book name
+        try (Response response = bookListRoutes.addBookToReadingListByName("15928", jsonBook);) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the response
+            String jsonResponse =  (String)response.getEntity();
+            Book bookFromResponse = mapper.readValue(jsonResponse, Book.class);
+            assertNotNull(bookFromResponse);
+            assertEquals(book.getTitle(), bookFromResponse.getTitle());
+            Book bookFromDb = BookListApiService.getBook(bookFromResponse.getId());
+            assertNotNull(bookFromDb);
+            assertEquals(bookFromResponse.getReadingList().getId(), bookFromDb.getReadingList().getId());
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
     }
 
     @Test
