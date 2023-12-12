@@ -1,68 +1,90 @@
 package org.TeamCodeDefy.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * Hibernate entity for Book table.
  * Auto generated using JPA Buddy
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "Books")
 public class Book {
+
+    @JsonProperty("id")
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id = null;
 
+    @JsonProperty("readingList")
+    @JsonBackReference
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "ReadingList_id", nullable = false)
     private ReadingList readingList;
 
+    @JsonProperty("isbn")
     @Column(name = "isbn")
     private String isbn;
 
+    @JsonProperty("isRead")
     @NotNull
     @Column(name = "isRead", nullable = false)
     private Boolean isRead = false;
 
+    @JsonProperty("lastPageRead")
     @NotNull
     @Column(name = "lastPageRead", nullable = false)
-    private Integer lastPageRead;
+    private Integer lastPageRead = 0;
 
-    @NotNull
-    @Column(name = "readingListSequenceNumber", nullable = false)
-    private Integer readingListSequenceNumber;
+    @JsonProperty("readingListSequenceNumber")
+    @Column(name = "readingListSequenceNumber")
+    private Integer readingListSequenceNumber = null;
 
+    @JsonProperty("publisher")
     @Size(max = 100)
     @Column(name = "publisher", length = 100)
     private String publisher;
 
+    @JsonProperty("language")
     @Size(max = 50)
     @Column(name = "language", length = 50)
     private String language;
 
+    @JsonProperty("author")
     @Size(max = 100)
     @Column(name = "author", length = 100)
     private String author;
 
+    @JsonProperty("title")
     @Size(max = 100)
     @NotNull
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
+    @JsonProperty("pageCount")
     @Column(name = "pageCount")
     private Integer pageCount;
 
+    @JsonProperty("averageRating")
     @Size(max = 4)
     @Column(name = "averageRating", length = 4)
     private String averageRating;
 
+    @JsonProperty("description")
     @Lob
     @Column(name = "description")
     private String description;
 
+    @JsonProperty("thumbnailLink")
     @Lob
     @Column(name = "thumbnailLink")
     private String thumbnailLink;
@@ -179,4 +201,16 @@ public class Book {
         this.thumbnailLink = thumbnailLink;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

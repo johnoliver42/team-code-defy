@@ -564,7 +564,7 @@ fabric.properties
 hs_err_pid*
 replay_pid*
 /.idea/
-/src/main/resources/hibernate.cfg.xml
+/src/main/resources/hibernate.cfg.xml.local
 !/src/main/resources/properties.properties
 /src/main/resources/properties.properties
 /src/main/resources/log4j2.properties
@@ -572,3 +572,10 @@ replay_pid*
 !/src/test/resources/log4j2.properties
 /src/test/resources/log4j2.properties
 /ReadingList.iml
+/src/test/resources/hibernate.cfg.xml.local
+/src/main/resources/hibernate.cfg.xml.local
+src/main/resources/hibernate.cfg.xml
+/src/test/resources/hibernate.cfg.xml
+src/test/resources/hibernate.cfg.xml.disabled
+design/http-client.private.env.json
+

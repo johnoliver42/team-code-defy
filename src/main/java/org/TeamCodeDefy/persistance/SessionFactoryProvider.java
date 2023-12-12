@@ -25,7 +25,7 @@ public class SessionFactoryProvider {
     /**
      * Create session factory.
      */
-    public static void createSessionFactory() {
+    private static void createSessionFactory() {
 
         StandardServiceRegistry standardRegistry =
                 new StandardServiceRegistryBuilder().configure().build();
@@ -39,7 +39,7 @@ public class SessionFactoryProvider {
      *
      * @return the session factory
      */
-    public static SessionFactory getSessionFactory() {
+    public static synchronized SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             synchronized(SessionFactoryProvider.class) {
                 if (sessionFactory == null) {

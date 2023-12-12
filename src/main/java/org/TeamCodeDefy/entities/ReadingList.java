@@ -1,35 +1,51 @@
 package org.TeamCodeDefy.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.TeamCodeDefy.persistance.ReadingListIdGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Hibernate entity for ReadingList table.
  * Auto generated using JPA Buddy
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class ReadingList {
+
+    @JsonProperty("id")
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(generator = ReadingListIdGenerator.generatorName)
+    @GenericGenerator(name = ReadingListIdGenerator.generatorName, strategy = "org.TeamCodeDefy.persistance.ReadingListIdGenerator")
     private Integer id;
 
+    @JsonProperty("listName")
     @Size(max = 100)
     @NotNull
     @Column(name = "listName", nullable = false, length = 100)
     private String listName;
 
+    @JsonProperty("createDate")
     @NotNull
+    @CreationTimestamp
     @Column(name = "createDate", nullable = false)
-    private Instant createDate;
+    private Timestamp createDate;
 
-    @OneToMany(mappedBy = "readingList")
+    @JsonProperty("books")
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "readingList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books = new LinkedHashSet<>();
 
     public Integer getId() {
@@ -48,11 +64,11 @@ public class ReadingList {
         this.listName = listName;
     }
 
-    public Instant getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Instant createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 

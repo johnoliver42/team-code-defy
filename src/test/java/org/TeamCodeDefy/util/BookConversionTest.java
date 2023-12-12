@@ -1,4 +1,4 @@
-package org.TeamCodeDefy.utilities;
+package org.TeamCodeDefy.util;
 
 import org.TeamCodeDefy.entities.Book;
 import org.TeamCodeDefy.googleBooksApi.GoogleBookResponse;

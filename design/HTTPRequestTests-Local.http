@@ -1,0 +1,84 @@
+### Create Reading List
+@listName = My%20List
+GET http://localhost:8080/ReadingList_war/reading-list/create-list/{{listName}}
+
+### Get Reading List
+@getReadingListId = 15928
+GET http://localhost:8080/ReadingList_war/reading-list/{{getReadingListId}}
+
+### Delete Reading List
+@deleteReadingListId = 588983
+DELETE http://localhost:8080/ReadingList_war/reading-list/{{deleteReadingListId}}/delete-reading-list
+
+### Add Book By ISBN
+@isbn = 9781617292545
+@readingListId = 15928
+GET http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/add-book-by-isbn/{{isbn}}
+
+### Add Book By Name
+POST http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/add-book-by-name
+Content-Type: application/json
+
+{
+  "id" : null,
+  "isbn" : null,
+  "isRead" : false,
+  "lastPageRead" : 0,
+  "readingListSequenceNumber" : 8,
+  "publisher" : "Manning",
+  "language" : "en",
+  "author" : "Craig Walls",
+  "title": "Spring Boot in Action2",
+  "pageCount" : 0,
+  "averageRating" : null,
+  "description" : "Summary A developer-focused guide to writing applications using Spring Boot. You'll learn how to bypass the tedious configuration steps so that you can concentrate on your application's behavior. Purchase of the print book includes a free eBook in PDF, Kindle, and ePub formats from Manning Publications. About the Technology The Spring Framework simplifies enterprise Java development, but it does require lots of tedious configuration work. Spring Boot radically streamlines spinning up a Spring application. You get automatic configuration and a model with established conventions for build-time and runtime dependencies. You also get a handy command-line interface you can use to write scripts in Groovy. Developers who use Spring Boot often say that they can't imagine going back to hand configuring their applications. About the Book Spring Boot in Action is a developer-focused guide to writing applications using Spring Boot. In it, you'll learn how to bypass configuration steps so you can focus on your application's behavior. Spring expert Craig Walls uses interesting and practical examples to teach you both how to use the default settings effectively and how to override and customize Spring Boot for your unique environment. Along the way, you'll pick up insights from Craig's years of Spring development experience. What's Inside Develop Spring apps more efficiently Minimal to no configuration Runtime metrics with the Actuator Covers Spring Boot 1.3 About the Reader Written for readers familiar with the Spring Framework. About the Author Craig Walls is a software developer, author of the popular book Spring in Action, Fourth Edition, and a frequent speaker at conferences. Table of Contents Bootstarting Spring Developing your first Spring Boot application Customizing configuration Testing with Spring Boot Getting Groovy with the Spring Boot CLI Applying Grails in Spring Boot Taking a peek inside with the Actuator Deploying Spring Boot applications APPENDIXES Spring Boot developer tools Spring Boot starters Configuration properties Spring Boot dependencies",
+  "thumbnailLink" : "http://books.google.com/books/content?id=9CiPrgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+}
+
+###
+@bookToDeleteId = 678075
+@readingListIdForDelete = 15928
+DELETE http://localhost:8080/ReadingList_war/reading-list/{{readingListIdForDelete}}/remove-book-by-id/{{bookToDeleteId}}
+
+
+### Update book reading order
+@newPosition = 5
+@bookId = 995156
+PUT http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/update-book-reading-order/{{bookId}}/{{newPosition}}
+Content-Type: */*
+
+### Set book read status
+@isRead = true
+PUT http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/mark-book-as-read/{{bookId}}/{{isRead}}
+Content-Type: */*
+
+### Get book
+GET http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/get-book/{{bookId}}
+
+### Update last page read
+@lastPageRead = 100
+PUT http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/update-last-page-read/{{bookId}}/{{lastPageRead}}
+Content-Type: */*
+
+### Update book
+PUT http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/update-book
+Content-Type: application/json
+
+{
+  "id": 995155,
+  "isbn": null,
+  "isRead": false,
+  "lastPageRead": 0,
+  "readingListSequenceNumber": 9,
+  "publisher": "Manning You",
+  "language": "en",
+  "author": "Craig Walls JR",
+  "title": "Spring Boot in Action2",
+  "pageCount": 0,
+  "averageRating": null,
+  "description": "Summary A developer-focused guide to writing applications using Spring Boot. You'll learn how to bypass the tedious configuration steps so that you can concentrate on your application's behavior. Purchase of the print book includes a free eBook in PDF, Kindle, and ePub formats from Manning Publications. About the Technology The Spring Framework simplifies enterprise Java development, but it does require lots of tedious configuration work. Spring Boot radically streamlines spinning up a Spring application. You get automatic configuration and a model with established conventions for build-time and runtime dependencies. You also get a handy command-line interface you can use to write scripts in Groovy. Developers who use Spring Boot often say that they can't imagine going back to hand configuring their applications. About the Book Spring Boot in Action is a developer-focused guide to writing applications using Spring Boot. In it, you'll learn how to bypass configuration steps so you can focus on your application's behavior. Spring expert Craig Walls uses interesting and practical examples to teach you both how to use the default settings effectively and how to override and customize Spring Boot for your unique environment. Along the way, you'll pick up insights from Craig's years of Spring development experience. What's Inside Develop Spring apps more efficiently Minimal to no configuration Runtime metrics with the Actuator Covers Spring Boot 1.3 About the Reader Written for readers familiar with the Spring Framework. About the Author Craig Walls is a software developer, author of the popular book Spring in Action, Fourth Edition, and a frequent speaker at conferences. Table of Contents Bootstarting Spring Developing your first Spring Boot application Customizing configuration Testing with Spring Boot Getting Groovy with the Spring Boot CLI Applying Grails in Spring Boot Taking a peek inside with the Actuator Deploying Spring Boot applications APPENDIXES Spring Boot developer tools Spring Boot starters Configuration properties Spring Boot dependencies",
+  "thumbnailLink": "http://books.google.com/books/content?id=9CiPrgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+}
+
+
+

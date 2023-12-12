@@ -1,8 +1,13 @@
 package org.TeamCodeDefy.persistance;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +30,13 @@ public class GenericDao<T> {
      */
     public GenericDao(Class<T> type) {
         this.type = type;
+    }
+
+    public Boolean exists(int id) {
+        Session session = getSession();
+        T entity = (T)session.get(type, id);
+        session.close();
+        return entity != null;
     }
 
     /**
@@ -83,18 +95,28 @@ public class GenericDao<T> {
     /**
      * Finds entities by one of its properties.
      *
-     * @param propertyName the property name.
-     * @param value the value by which to find.
-     * @return
+     * @param properties HashMap of property values
+     * @return entities list of entities
      */
-    public List<T> findByPropertyEqual(String propertyName, Object value) {
+    public List<T> findByPropertyEqual(Map<String, Object> properties) {
+        // Search for the entity based on an hashmap of properties and values
         Session session = getSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
-        query.select(root).where(builder.equal(root.get(propertyName),value));
 
-        return session.createQuery(query).getResultList();
+        query.select(root);
+
+        ArrayList<Predicate> predicates = new ArrayList<>();
+
+        for (Map.Entry<String, Object> key : properties.entrySet()) {
+           predicates.add(builder.equal(root.get(key.getKey()), key.getValue()));
+        }
+        query.where(predicates.toArray(new Predicate[]{}));
+
+        List<T> entities = session.createQuery(query).getResultList();
+        session.close();
+        return entities;
     }
 
     /**
