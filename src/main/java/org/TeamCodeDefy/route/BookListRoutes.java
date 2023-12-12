@@ -3,8 +3,8 @@ package org.TeamCodeDefy.route;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.TeamCodeDefy.entities.Book;
-import org.TeamCodeDefy.entities.ErrorResponse;
 import org.TeamCodeDefy.entities.ReadingList;
+import org.TeamCodeDefy.entities.ResponseMessage;
 import org.TeamCodeDefy.service.BookListApiService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,7 +44,7 @@ public class BookListRoutes {
             json = mapper.writeValueAsString(newReadingList);
         } catch (JsonProcessingException e) {
             logger.error("Error creating JSON response:", e);
-            ErrorResponse errorResponse = new ErrorResponse("JSON mapping error", "Unable to map JSON response");
+            ResponseMessage errorResponse = new ResponseMessage("JSON mapping error", "Unable to map JSON response");
             try {
                 String jsonError = mapper.writeValueAsString(errorResponse);
                 return Response.status(500, jsonError).build();
@@ -69,10 +69,21 @@ public class BookListRoutes {
         // Convert data to Java types as needed.
         boolean deleted = BookListApiService.deleteReadingList(Integer.parseInt(id));
 
-        if (deleted) {
-            return Response.status(Response.Status.OK).entity("Reading list with ID " + id + " deleted.").build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Reading list with ID " + id + " not found.").build();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (deleted) {
+                ResponseMessage errorResponse = new ResponseMessage("Success", "true");
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(200, jsonError).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Delete failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
         }
     }
 
@@ -87,19 +98,21 @@ public class BookListRoutes {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getReadingList(@PathParam("id") String id) {
         ReadingList readingList = BookListApiService.getReadingListById(Integer.parseInt(id));
-        System.out.println("readingList: " + readingList.getListName());
 
-        if (readingList != null) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
-            try {
+
+            if (readingList != null) {
                 String json = mapper.writeValueAsString(readingList);
                 return Response.status(200).entity(json).build();
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-                return Response.status(500).entity("Error creating JSON response").build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Reading list not found" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
             }
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Reading list with ID " + id + " not found.").build();
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
         }
     }
 
@@ -110,17 +123,28 @@ public class BookListRoutes {
      * @param isbn the isbn
      * @return Success or failure message.
      */
-    @POST
+    @GET
     @Path("{id}/add-book-by-isbn/{isbn}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addBookToReadingListByIsbn(@PathParam("id") String id, @PathParam("isbn") String isbn) {
         // Call the function in BookListApiService.java to add book to the reading list
-        boolean added = BookListApiService.addBookToReadingListByIsbn(Integer.parseInt(id), isbn);
+        Book book = BookListApiService.addBookToReadingListByIsbn(Integer.parseInt(id), isbn);
 
-        if (added) {
-            return Response.status(Response.Status.OK).entity("Book with ISBN " + isbn + " added to reading list " + id).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Reading list with ID " + id + " not found.").build();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (book != null) {
+                String json = mapper.writeValueAsString(book);
+
+                return Response.ok(json, MediaType.APPLICATION_JSON).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Add failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
         }
     }
 
@@ -148,10 +172,10 @@ public class BookListRoutes {
             if (newBook != null) {
                 // Encode newBook to JSON and return to user
                 String json = mapper.writeValueAsString(newBook);
-                return Response.status(Response.Status.OK).entity(json).build();
+                return Response.ok(json, MediaType.APPLICATION_JSON).build();
             } else {
                 logger.error("Error new book returned null");
-                ErrorResponse errorResponse = new ErrorResponse("JSON mapping error", "Unable to map JSON response");
+                ResponseMessage errorResponse = new ResponseMessage("JSON mapping error", "Unable to map JSON response");
                 try {
                     String jsonError = mapper.writeValueAsString(errorResponse);
                     return Response.status(500, jsonError).build();
@@ -162,7 +186,7 @@ public class BookListRoutes {
 
         } catch (JsonProcessingException e) {
             logger.error("Error mapping JSON to Book object:", e);
-            ErrorResponse errorResponse = new ErrorResponse("JSON mapping error", "Unable to map JSON response");
+            ResponseMessage errorResponse = new ResponseMessage("JSON mapping error", "Unable to map JSON response");
             try {
                 String jsonError = mapper.writeValueAsString(errorResponse);
                 return Response.status(500, jsonError).build();
