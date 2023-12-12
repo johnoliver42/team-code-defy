@@ -1,5 +1,6 @@
 package org.TeamCodeDefy.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.TeamCodeDefy.persistance.ReadingListIdGenerator;
@@ -19,6 +20,7 @@ import java.util.Set;
  * Hibernate entity for ReadingList table.
  * Auto generated using JPA Buddy
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class ReadingList {
 

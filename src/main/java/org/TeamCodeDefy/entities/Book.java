@@ -1,6 +1,7 @@
 package org.TeamCodeDefy.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Objects;
  * Hibernate entity for Book table.
  * Auto generated using JPA Buddy
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "Books")
 public class Book {
