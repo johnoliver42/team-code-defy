@@ -1,7 +1,7 @@
 
 -- foreign keys
-ALTER TABLE IF EXISTS Books
-    DROP FOREIGN KEY Books_ReadingList;
+-- ALTER TABLE IF EXISTS Books
+--     DROP FOREIGN KEY Books_ReadingList;
 
 -- tables
 DROP TABLE IF EXISTS Books;
