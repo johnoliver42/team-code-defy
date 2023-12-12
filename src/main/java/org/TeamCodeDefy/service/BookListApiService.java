@@ -11,10 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller class for the BookList API.
@@ -274,10 +271,13 @@ public final class BookListApiService {
      * @param bookId the book id
      * @return Book
      */
-    public static Book getBook(int bookId) {
+    public static Book getBook(int readingListId, int bookId) {
         // Get book from database
+        Map<String,Object> criteria = new HashMap<>();
+        criteria.put("id", bookId);
+        criteria.put("readingList", readingListId);
 
-        return bookDao.getById(bookId);
+        return (Book) bookDao.findByPropertyEqual(criteria).toArray()[0];
     }
 
     /**

@@ -135,7 +135,7 @@ class BookListApiServiceTest {
     @Test
     void getBook() {
         // Get a book from the database
-        Book book = BookListApiService.getBook(104620);
+        Book book = BookListApiService.getBook(15928,104620);
         // Make sure the book is not null
         assertNotNull(book);
     }

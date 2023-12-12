@@ -1,6 +1,8 @@
 package org.TeamCodeDefy.persistance;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -90,18 +92,25 @@ public class GenericDao<T> {
     /**
      * Finds entities by one of its properties.
      *
-     * @param propertyName the property name.
-     * @param value the value by which to find.
-     * @return
+     * @param properties HashMap of property values
+     * @return entities list of entities
      */
-    public List<T> findByPropertyEqual(String propertyName, Object value) {
+    public List<T> findByPropertyEqual(Map<String, Object> properties) {
+        // Search for the entity based on an hashmap of properties and values
         Session session = getSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(type);
         Root<T> root = query.from(type);
-        query.select(root).where(builder.equal(root.get(propertyName),value));
 
-        return session.createQuery(query).getResultList();
+        query.select(root);
+
+        for (Map.Entry<String, Object> key : properties.entrySet()) {
+            query.where(builder.equal(root.get(key.getKey()), key.getValue()));
+        }
+
+        List<T> entities = session.createQuery(query).getResultList();
+        session.close();
+        return entities;
     }
 
     /**
