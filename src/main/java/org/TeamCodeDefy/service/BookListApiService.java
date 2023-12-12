@@ -73,7 +73,7 @@ public final class BookListApiService {
     }
 
 
-    public static boolean addBookToReadingListByIsbn(int readingListId, String isbn) {
+    public static Book addBookToReadingListByIsbn(int readingListId, String isbn) {
 
         // Get book from Google Books API
         Book bookTemp = new Book();
@@ -87,13 +87,26 @@ public final class BookListApiService {
         // Set the readingList id for the book
         book.setReadingList(readingList);
 
+        // Insert the book into the database and get the book id
+        int bookId = bookDao.insert(book);
+
+        // Get the book from the database
+        Book newBook = bookDao.getById(bookId);
+
         // Add the book to the reading list
-        readingList = addBookToReadingList(readingList, book);
+        readingList = addBookToReadingList(readingList, newBook);
+
+        // Get the book from the reading list so that we can return the book with the readingListSequenceNumber set
+        for (Book b : readingList.getBooks()) {
+            if (b.getId() == bookId) {
+                newBook = b;
+            }
+        }
 
         // Update the reading list in the database
         updateReadingList(readingList);
 
-        return true;
+        return newBook;
     }
 
     public static boolean removeBookFromReadingList(int readingListId, int bookId) {
@@ -233,6 +246,13 @@ public final class BookListApiService {
         readingListDao.saveOrUpdate(readingList);
     }
 
+    /**
+     * Set the read status for a book in a readingList.
+     * @param readingListId
+     * @param bookId
+     * @param readStatus
+     * @return
+     */
     public static boolean setBookReadStatus(int readingListId, int bookId, boolean readStatus) {
         // Get the reading list
         ReadingList readingList = getReadingListById(readingListId);
@@ -260,6 +280,14 @@ public final class BookListApiService {
         return bookDao.getById(bookId);
     }
 
+    /**
+     * Update the last page read for a book in a readingList.
+     *
+     * @param readingListId
+     * @param bookId
+     * @param lastPageRead
+     * @return
+     */
     public static boolean updateLastPageRead(int readingListId, int bookId, int lastPageRead) {
 
         // Get readingList from database
@@ -278,6 +306,13 @@ public final class BookListApiService {
         return false;
     }
 
+    /**
+     * Update a book in a readingList.
+     *
+     * @param readingListId
+     * @param book
+     * @return
+     */
     public static boolean updateBook(int readingListId, Book book) {
 
         // Get readingList from database
@@ -289,6 +324,15 @@ public final class BookListApiService {
         return true;
     }
 
+    /**
+     * Add a book to a readingList.
+     *
+     * If the book does not have a readingListSequenceNumber, set it to the next available sequence number.
+     *
+     * @param readingListId the readingList id
+     * @param newBook the book to add to the readingList
+     * @return Book
+     */
     public static Book addBookToReadingListByName(int readingListId, Book newBook) {
         Book addedBook = null;
         // Get the reading list
