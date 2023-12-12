@@ -27,10 +27,11 @@ We are creating a backend API that could be used for a reading list website that
 * Jersey
 
 ### Project Site
-* [reading List API](http://readinglist.us-east-2.elasticbeanstalk.com/)
+* [Reading List API](http://readinglist.us-east-2.elasticbeanstalk.com/)
 
 ### Project Operations
 * [Journal](design/journal.md)
 * [Team Resume](design/resume.md)
 * [Team Charter](design/charter.md)
 * [Project Plan](design/projectPlan.md)
+* [API Design](design/APIDesign.md)

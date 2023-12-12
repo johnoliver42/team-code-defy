@@ -26,10 +26,11 @@
 
 
 ### Create Google Books API Code (Kailyn)
-- [ ] Create a Google Books package/classes
-- [ ] Create POJO for API response using Jackson
-- [ ] Create DAO that returns response
+- [x] Create a Google Books package/classes
+- [x] Create POJO for API response using Jackson
+- [x] Create DAO that returns response
 - [ ] Write unit tests using junit
+- [ ] Map to Book entity
 - [ ] Documentation for all classes/methods
 
 ### API Documentation (Shilpa)
