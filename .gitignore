@@ -576,3 +576,6 @@ replay_pid*
 /src/main/resources/hibernate.cfg.xml.local
 src/main/resources/hibernate.cfg.xml
 /src/test/resources/hibernate.cfg.xml
+src/test/resources/hibernate.cfg.xml.disabled
+design/http-client.private.env.json
+
