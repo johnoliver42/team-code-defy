@@ -1,10 +1,13 @@
 package org.TeamCodeDefy.persistance;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -104,9 +107,12 @@ public class GenericDao<T> {
 
         query.select(root);
 
+        ArrayList<Predicate> predicates = new ArrayList<>();
+
         for (Map.Entry<String, Object> key : properties.entrySet()) {
-            query.where(builder.equal(root.get(key.getKey()), key.getValue()));
+           predicates.add(builder.equal(root.get(key.getKey()), key.getValue()));
         }
+        query.where(predicates.toArray(new Predicate[]{}));
 
         List<T> entities = session.createQuery(query).getResultList();
         session.close();
