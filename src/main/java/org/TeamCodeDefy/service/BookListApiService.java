@@ -5,7 +5,7 @@ import org.TeamCodeDefy.entities.ReadingList;
 
 import org.TeamCodeDefy.persistance.GenericDao;
 import org.TeamCodeDefy.persistance.GoogleBooksApiDao;
-import org.TeamCodeDefy.utilities.BookConversion;
+import org.TeamCodeDefy.util.BookConversion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
