@@ -266,7 +266,7 @@ public class BookListRoutes {
     @PUT
     @Path("{id}/mark-book-as-read/{bookId}/{isRead}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setBookReadStatus(@PathParam("id") Integer id, @PathParam("bookId") Integer bookId, Boolean isRead) {
+    public Response setBookReadStatus(@PathParam("id") Integer id, @PathParam("bookId") Integer bookId, @PathParam("isRead") Boolean isRead) {
         boolean markedAsRead = BookListApiService.setBookReadStatus(id, bookId, isRead);
 
         try {
