@@ -223,6 +223,7 @@ public final class BookListApiService {
     private static ReadingList addBookToReadingList(ReadingList readingList, Book book) {
         // If the book does not have a readingListSequenceNumber or the readingList is empty, set the
         // readingListSequenceNumber to the next available sequence number and add the book to the readingList.
+        book.setReadingList(readingList);
         if (book.getReadingListSequenceNumber() == null || readingList.getBooks().isEmpty()) {
             book.setReadingListSequenceNumber(readingList.getBooks().size() + 1);
             readingList.getBooks().add(book);
