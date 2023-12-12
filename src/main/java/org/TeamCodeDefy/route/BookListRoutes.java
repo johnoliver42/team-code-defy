@@ -340,20 +340,40 @@ public class BookListRoutes {
         }
     }
 
-//    /**
-//     * Update a book using the books ID and reading list ID.
-//     *
-//     * @return response
-//     */
-//    @PUT
-//    @Path("{id}/update-book/{bookId}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response updateBook(@PathParam("id") String id, @PathParam("bookId") String bookId) {
-//        boolean updated = bookListApiService.updateBook(id, bookId);
-//        if (updated) {
-//            return Response.status(Response.Status.OK).entity("Book with ID " + bookId + " updated in reading list with ID " + id).build();
-//        } else {
-//            return Response.status(Response.Status.NOT_FOUND).entity("Book or reading list not found.").build();
-//        }
-//    }
+    /**
+     * Update a book using the books ID and reading list ID.
+     *
+     * @return response
+     */
+    @PUT
+    @Path("{id}/update-book")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateBook(@PathParam("id") Integer id, String body) {
+        // Get the json from the request body
+        ObjectMapper mapper = new ObjectMapper();
+        Book book = null;
+        try {
+            book = mapper.readValue(body, Book.class);
+        } catch (JsonProcessingException e) {
+            logger.error("Error mapping JSON to Book object:", e);
+            return Response.status(500).entity("Error parsing JSON").build();
+        }
+
+        boolean updated = BookListApiService.updateBook(id, book);
+        try {
+            if (updated) {
+                ResponseMessage errorResponse = new ResponseMessage("Success", "true");
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.OK).entity(jsonError).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Update failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
+        }
+    }
 }

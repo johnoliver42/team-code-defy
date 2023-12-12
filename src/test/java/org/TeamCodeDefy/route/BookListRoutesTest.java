@@ -47,7 +47,7 @@ public class BookListRoutesTest {
     @Test
     public void deleteReadingListSuccess() {
         String id = "15928";
-        try (Response response = bookListRoutes.deleteReadingList(id);) {
+        try (Response response = bookListRoutes.deleteReadingList(id)) {
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             // Try to get the deleted reading list from the database
             ReadingList readingList = BookListApiService.getReadingListById(Integer.parseInt(id));
@@ -112,7 +112,7 @@ public class BookListRoutesTest {
         }
 
         // Use bookListRoutes to add a book to a reading list using the book name
-        try (Response response = bookListRoutes.addBookToReadingListByName("15928", jsonBook);) {
+        try (Response response = bookListRoutes.addBookToReadingListByName("15928", jsonBook)) {
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             // Get the book from the response
             String jsonResponse =  (String)response.getEntity();
@@ -131,7 +131,7 @@ public class BookListRoutesTest {
     @Test
     public void removeBookFromReadingListSuccess() {
         // Use bookListRoutes to remove a book from a reading list
-        try (Response response = bookListRoutes.removeBookFromReadingList("15928", "863592");) {
+        try (Response response = bookListRoutes.removeBookFromReadingList("15928", "863592")) {
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             // Try to get the deleted book from the database
             Book book = BookListApiService.getBook(15928,863592);
@@ -224,10 +224,39 @@ public class BookListRoutesTest {
 
     @Test
     public void updateBookSuccess() {
-//        int newId = 123;
-//        int bookId = 1028;
-//
-//        boolean response = BookListApiService.updateBook(newId, bookId);
-//        assertEquals(Response.Status.OK.getStatusCode(), response);
+        // Get a reading list from the database to use for testing
+        ReadingList readingList = BookListApiService.getReadingListById(15928);
+        // Get a book from the reading list to use for testing
+        Book book = readingList.getBooks().toArray(Book[]::new)[0];
+        book.setTitle("Test Title");
+        book.setAuthor("Test Author");
+        book.setReadingListSequenceNumber((book.getReadingListSequenceNumber() >= 2) ? 1 : 3);
+        book.setIsRead(!book.getIsRead());
+        book.setLastPageRead(book.getLastPageRead() + 1);
+
+        // Use bookListRoutes to update a book in a reading list
+        // Convert the book to json
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonBook = null;
+        try {
+            jsonBook = mapper.writeValueAsString(book);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        try (Response response = bookListRoutes.updateBook(15928, jsonBook);) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the database
+            Book bookFromResponse = BookListApiService.getBook(15928,book.getId());
+            assertEquals(book.getId(), bookFromResponse.getId());
+            assertEquals(book.getTitle(), bookFromResponse.getTitle());
+            assertEquals(book.getAuthor(), bookFromResponse.getAuthor());
+            assertEquals(book.getReadingListSequenceNumber(), bookFromResponse.getReadingListSequenceNumber());
+            assertEquals(book.getIsRead(), bookFromResponse.getIsRead());
+            assertEquals(book.getLastPageRead(), bookFromResponse.getLastPageRead());
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
     }
 }
