@@ -1,21 +1,21 @@
-###
+### Create Reading List
 @listName = My%20List
 GET http://localhost:8080/ReadingList_war/reading-list/create-list/{{listName}}
 
-###
+### Get Reading List
 @getReadingListId = 15928
 GET http://localhost:8080/ReadingList_war/reading-list/{{getReadingListId}}
 
-###
+### Delete Reading List
 @deleteReadingListId = 15928
 DELETE http://localhost:8080/ReadingList_war/reading-list/{{deleteReadingListId}}/delete-reading-list
 
-###
+### Add Book By ISBN
 @isbn = 9781617292545
 @readingListId = 15928
 GET http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/add-book-by-isbn/{{isbn}}
 
-###
+### Add Book By Name
 POST http://localhost:8080/ReadingList_war/reading-list/{{readingListId}}/add-book-by-name
 Content-Type: application/json
 
