@@ -53,8 +53,8 @@ Represents an item in the user's reading list.
 
 ## Resource URIs
 1. **Create Reading List:**
-    - **URI:** '/reading-list/create-list'
-    - **Method:** 'POST'
+    - **URI:** '/reading-list/create-list/{listName}'
+    - **Method:** 'GET'
     - **Description:** Create a new reading-list.
 
 2. **Delete Reading List:**
