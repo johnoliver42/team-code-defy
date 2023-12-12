@@ -130,30 +130,55 @@ public class BookListRoutesTest {
 
     @Test
     public void removeBookFromReadingListSuccess() {
-//      int listId = 15928;
-//      int bookIdToRemove = 2673;
-//
-//      boolean response = BookListApiService.removeBookFromReadingList(listId, bookIdToRemove);
-//      assertEquals(Response.Status.OK.getStatusCode(), response);
+        // Use bookListRoutes to remove a book from a reading list
+        try (Response response = bookListRoutes.removeBookFromReadingList("15928", "863592");) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Try to get the deleted book from the database
+            Book book = BookListApiService.getBook(863592);
+            assertNull(book);
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     @Test
     public void updateBookReadingOrderSuccess() {
-//      int listId = 15928;
-//      int bookId = 1028;
-//      int newOrder = 1;
-//
-//      boolean response = BookListApiService.updateReadingListOrder(listId, bookId, newOrder);
-//      assertEquals(Response.Status.OK.getStatusCode(), response);
+        // Get a reading list from the database to use for testing
+        ReadingList readingList = BookListApiService.getReadingListById(15928);
+        // Get a book from the reading list to use for testing
+        Book book = readingList.getBooks().toArray(Book[]::new)[0];
+        book.setReadingListSequenceNumber((book.getReadingListSequenceNumber() >= 2) ? 1 : 3);
+
+        // Use bookListRoutes to update the reading order of a book in a reading list
+        try (Response response = bookListRoutes.updateBookReadingOrder(15928, book.getId(), book.getReadingListSequenceNumber());) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the database
+            Book bookFromResponse = BookListApiService.getBook(book.getId());
+            assertEquals(book.getReadingListSequenceNumber(), bookFromResponse.getReadingListSequenceNumber());
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     @Test
     public void setBookReadStatusSuccess() {
-//      int bookId = 1028;
-//      boolean isRead = true;
-//
-//      boolean response = BookListApiService.setBookReadStatus(bookId, isRead);
-//      assertEquals(Response.Status.OK.getStatusCode(), response);
+        // Get a reading list from the database to use for testing
+        ReadingList readingList = BookListApiService.getReadingListById(15928);
+        // Get a book from the reading list to use for testing
+        Book book = readingList.getBooks().toArray(Book[]::new)[0];
+        book.setIsRead(!book.getIsRead());
+
+        // Use bookListRoutes to update the read status of a book in a reading list
+        try (Response response = bookListRoutes.setBookReadStatus(15928, book.getId(), book.getIsRead());) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the database
+            Book bookFromResponse = BookListApiService.getBook(book.getId());
+            assertEquals(book.getIsRead(), bookFromResponse.getIsRead());
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     @Test
