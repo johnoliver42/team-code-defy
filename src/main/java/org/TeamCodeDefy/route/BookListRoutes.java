@@ -287,30 +287,30 @@ public class BookListRoutes {
         }
     }
 
-//    /**
-//     * Get a book using the books ID and reading list ID.
-//     *
-//     * @return book
-//     */
-//    @GET
-//    @Path("{id}/get-book/{bookId}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getBook(@PathParam("id") String id, @PathParam("bookId") String bookId) {
-//        Book book = bookListApiService.getBookService(id, bookId);
-//
-//        if (book != null) {
-//            ObjectMapper mapper = new ObjectMapper();
-//            try {
-//                String json = mapper.writeValueAsString(book);
-//                return Response.status(Response.Status.OK).entity(json).build();
-//            } catch (JsonProcessingException e) {
-//                e.printStackTrace();
-//                return Response.status(500).entity("Error creating JSON response").build();            }
-//        } else {
-//            return Response.status(Response.Status.NOT_FOUND).entity("Book or reading list not found.").build();
-//        }
-//    }
-//
+    /**
+     * Get a book using the books ID and reading list ID.
+     *
+     * @return book
+     */
+    @GET
+    @Path("{id}/get-book/{bookId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBook(@PathParam("id") Integer id, @PathParam("bookId") Integer bookId) {
+        Book book = BookListApiService.getBook(id, bookId);
+
+        if (book != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                String json = mapper.writeValueAsString(book);
+                return Response.status(Response.Status.OK).entity(json).build();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return Response.status(500).entity("Error creating JSON response").build();            }
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Book or reading list not found.").build();
+        }
+    }
+
 //    /**
 //     * Update last page read response.
 //     *

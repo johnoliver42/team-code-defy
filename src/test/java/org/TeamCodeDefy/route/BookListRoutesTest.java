@@ -87,7 +87,7 @@ public class BookListRoutesTest {
             Book book = mapper.readValue(jsonResponse, Book.class);
             assertNotNull(book);
             assertEquals("9780062316097", book.getIsbn());
-            Book bookFromDb = BookListApiService.getBook(book.getId());
+            Book bookFromDb = BookListApiService.getBook(15928,book.getId());
             assertNotNull(bookFromDb);
             assertEquals(book.getReadingList().getId(), bookFromDb.getReadingList().getId());
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class BookListRoutesTest {
     @Test
     public void addBookToReadingListByNameSuccess() {
         // Get a book from the database to use for testing
-        Book book = BookListApiService.getBook(1028);
+        Book book = BookListApiService.getBook(692064,1028);
         book.setId(null);
         book.setIsbn(null);
 
@@ -119,7 +119,7 @@ public class BookListRoutesTest {
             Book bookFromResponse = mapper.readValue(jsonResponse, Book.class);
             assertNotNull(bookFromResponse);
             assertEquals(book.getTitle(), bookFromResponse.getTitle());
-            Book bookFromDb = BookListApiService.getBook(bookFromResponse.getId());
+            Book bookFromDb = BookListApiService.getBook(692064, bookFromResponse.getId());
             assertNotNull(bookFromDb);
             assertEquals(bookFromResponse.getReadingList().getId(), bookFromDb.getReadingList().getId());
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class BookListRoutesTest {
         try (Response response = bookListRoutes.removeBookFromReadingList("15928", "863592");) {
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             // Try to get the deleted book from the database
-            Book book = BookListApiService.getBook(863592);
+            Book book = BookListApiService.getBook(15928,863592);
             assertNull(book);
         } catch (Exception e) {
             logger.error(e);
@@ -153,7 +153,7 @@ public class BookListRoutesTest {
         try (Response response = bookListRoutes.updateBookReadingOrder(15928, book.getId(), book.getReadingListSequenceNumber());) {
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             // Get the book from the database
-            Book bookFromResponse = BookListApiService.getBook(book.getId());
+            Book bookFromResponse = BookListApiService.getBook(15928,book.getId());
             assertEquals(book.getReadingListSequenceNumber(), bookFromResponse.getReadingListSequenceNumber());
 
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class BookListRoutesTest {
         try (Response response = bookListRoutes.setBookReadStatus(15928, book.getId(), book.getIsRead());) {
             assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
             // Get the book from the database
-            Book bookFromResponse = BookListApiService.getBook(book.getId());
+            Book bookFromResponse = BookListApiService.getBook(15928,book.getId());
             assertEquals(book.getIsRead(), bookFromResponse.getIsRead());
 
         } catch (Exception e) {
@@ -183,11 +183,22 @@ public class BookListRoutesTest {
 
     @Test
     public void getBookSuccess() {
-//        int bookId = 1028;
-//        Book book = BookListApiService.getBook(bookId);
-//
-//        assertNotNull(book);
-//        assertEquals(bookId, book.getId());
+        // Get a book from the database to use for testing
+        Book book = BookListApiService.getBook(15928,104620);
+
+        // Use bookListRoutes to get a book from a reading list
+        try (Response response = bookListRoutes.getBook(15928, book.getId());) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the response
+            String jsonResponse =  (String)response.getEntity();
+            ObjectMapper mapper = new ObjectMapper();
+            Book bookFromResponse = mapper.readValue(jsonResponse, Book.class);
+            assertNotNull(bookFromResponse);
+            assertEquals(book.getId(), bookFromResponse.getId());
+        } catch (Exception e) {
+            logger.error(e);
+        }
+
     }
 
     @Test
