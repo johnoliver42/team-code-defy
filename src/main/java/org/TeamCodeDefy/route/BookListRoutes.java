@@ -209,50 +209,84 @@ public class BookListRoutes {
         // Call the function in BookListApiService.java to remove the book from the reading list
         boolean removed = BookListApiService.removeBookFromReadingList(Integer.parseInt(id), Integer.parseInt(bookId));
 
-        if (removed) {
-            return Response.status(Response.Status.OK).entity("Book with ID " + bookId + " removed from reading list with ID " + id).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Book not found in reading list").build();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (removed) {
+                ResponseMessage errorResponse = new ResponseMessage("Success", "true");
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.OK).entity(jsonError).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Remove failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
         }
     }
-//
-//    /**
-//     * Update the order/position of a book in the reading list using the books ID,
-//     * reading list ID, and new position.
-//     *
-//     * @return Success or failure message.
-//     */
-//    @PUT
-//    @Path("{id}/update-book-reading-order/{bookId}/{newPosition}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response updateBookReadingOrder(@PathParam("id") String id, @PathParam("bookId") String bookId, @PathParam("newPosition") int newPosition ){
-//        boolean updated = bookListApiService.updateBookReadingOrderService(id, bookId, newPosition);
-//
-//        if (updated) {
-//            return Response.status(Response.Status.OK).entity("Book order updated in reading list with ID " + id).build();
-//        } else {
-//            return Response.status(Response.Status.NOT_FOUND).entity("Book or reading list not found.").build();
-//        }
-//    }
-//
-//    /**
-//     * Mark a book as read using the books ID and reading list ID.
-//     *
-//     * @return book read status
-//     */
-//    @PUT
-//    @Path("{id}/mark-book-as-read/{bookId}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response setBookReadStatus(@PathParam("id") String id, @PathParam("bookId") String bookId) {
-//        boolean markedAsRead = bookListApiService.setBookReadStatusService(id, bookId);
-//
-//        if (markedAsRead) {
-//            return Response.status(Response.Status.OK).entity("Book marked as read in reading list with ID " + id).build();
-//        } else {
-//            return Response.status(Response.Status.NOT_FOUND).entity("Book or reading list not found.").build();
-//        }
-//    }
-//
+
+    /**
+     * Update the order/position of a book in the reading list using the books ID,
+     * reading list ID, and new position.
+     *
+     * @return Success or failure message.
+     */
+    @PUT
+    @Path("{id}/update-book-reading-order/{bookId}/{newPosition}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateBookReadingOrder(@PathParam("id") int id, @PathParam("bookId") int bookId, @PathParam("newPosition") int newPosition ){
+        boolean updated = BookListApiService.updateReadingListOrder(id, bookId, newPosition);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (updated) {
+                ResponseMessage errorResponse = new ResponseMessage("Success", "true");
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.OK).entity(jsonError).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Update failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
+        }
+
+    }
+
+    /**
+     * Mark a book as read using the books ID and reading list ID.
+     *
+     * @return book read status
+     */
+    @PUT
+    @Path("{id}/mark-book-as-read/{bookId}/{isRead}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setBookReadStatus(@PathParam("id") Integer id, @PathParam("bookId") Integer bookId, Boolean isRead) {
+        boolean markedAsRead = BookListApiService.setBookReadStatus(id, bookId, isRead);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (markedAsRead) {
+                ResponseMessage errorResponse = new ResponseMessage("Success", "true");
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.OK).entity(jsonError).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Update failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
+        }
+    }
+
 //    /**
 //     * Get a book using the books ID and reading list ID.
 //     *
