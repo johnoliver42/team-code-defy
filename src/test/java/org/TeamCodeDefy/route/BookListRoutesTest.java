@@ -203,12 +203,23 @@ public class BookListRoutesTest {
 
     @Test
     public void updateLastPageReadSuccess() {
-//        int id = 123;
-//        int bookId = 1028;
-//        int lastPageRead = 438;
-//
-//        boolean response = BookListApiService.updateLastPageRead(id,bookId, lastPageRead);
-//        assertEquals(Response.Status.OK.getStatusCode(), response);
+        // Get a reading list from the database to use for testing
+        ReadingList readingList = BookListApiService.getReadingListById(15928);
+        // Get a book from the reading list to use for testing
+        Book book = readingList.getBooks().toArray(Book[]::new)[0];
+        book.setLastPageRead(book.getLastPageRead() + 1);
+
+        // Use bookListRoutes to update the last page read of a book in a reading list
+        try (Response response = bookListRoutes.updateLastPageRead(15928, book.getId(), book.getLastPageRead());) {
+            assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+            // Get the book from the database
+            Book bookFromResponse = BookListApiService.getBook(15928,book.getId());
+            assertEquals(book.getId(), bookFromResponse.getId());
+            assertEquals(book.getLastPageRead(), bookFromResponse.getLastPageRead());
+
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     @Test

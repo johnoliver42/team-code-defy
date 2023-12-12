@@ -311,24 +311,35 @@ public class BookListRoutes {
         }
     }
 
-//    /**
-//     * Update last page read response.
-//     *
-//     * @return response
-//     */
-//    @PUT
-//    @Path("{id}/update-last-page-read/{bookId}/{lastPageRead}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response updateLastPageRead(@PathParam("id") String id, @PathParam("bookId") String bookId, @PathParam("lastPageRead") int lastPageRead) {
-//        boolean updated = bookListApiService.updateLastPageReadService(id, bookId, lastPageRead);
-//
-//        if (updated) {
-//            return Response.status(Response.Status.OK).entity("Last page read updated for book in reading list with ID " + id).build();
-//        } else {
-//            return Response.status(Response.Status.NOT_FOUND).entity("Book or reading list not found.").build();
-//        }
-//    }
-//
+    /**
+     * Update last page read response.
+     *
+     * @return response
+     */
+    @PUT
+    @Path("{id}/update-last-page-read/{bookId}/{lastPageRead}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateLastPageRead(@PathParam("id") Integer id, @PathParam("bookId") Integer bookId, @PathParam("lastPageRead") Integer lastPageRead) {
+        boolean updated = BookListApiService.updateLastPageRead(id, bookId, lastPageRead);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            if (updated) {
+                ResponseMessage errorResponse = new ResponseMessage("Success", "true");
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.OK).entity(jsonError).build();
+            } else {
+                ResponseMessage errorResponse = new ResponseMessage("Error", "Update failed" );
+                String jsonError = mapper.writeValueAsString(errorResponse);
+                return Response.status(Response.Status.NOT_FOUND).entity(jsonError).build();
+            }
+        } catch (JsonProcessingException ex) {
+            logger.error("Error creating JSON error response:", ex);
+            return Response.status(500, "Error creating JSON error response").build();
+        }
+    }
+
 //    /**
 //     * Update a book using the books ID and reading list ID.
 //     *
