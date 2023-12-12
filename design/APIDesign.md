@@ -3,14 +3,21 @@
 ## OBJECT MODELING
 
 ### Book Object
-Represents a book retrieved from the Google Books API or added to the reading list.
+Represents a book in the user's reading list.
 
 ```json
 {
   "id": "unique_identifier",
-  "title": "The Book Title",
-  "author": "Author Name",
   "isbn": "ISBN Number",
+  "isRead": "true/false",
+  "lastPageRead": "page_number",
+  "readingListSequenceNumber": "sequence_number",
+  "publisher": "Publisher Name",
+  "language": "Language",
+  "author": "Author Name",
+  "pageCount": "number_of_pages",
+  "averageRating": "average_rating", 
+  "title": "The Book Title",
   "thumbnail": "URL to book cover image",
   "description": "Book Description"
 }
@@ -22,15 +29,25 @@ Represents an item in the user's reading list.
 ```json
 {
   "id": "unique_identifier",
-  "book": {
-    "id": "unique_identifier",
-    "title": "The Book Title",
-    "author": "Author Name",
-    "isbn": "ISBN Number",
-    "thumbnail": "URL to book cover image",
-    "description": "Book Description"
-  },
-  "date_added": "timestamp"
+  "listName": "Reading List Name",
+  "createDate": "timestamp",
+  "books": [
+    {
+      "id": "unique_identifier",
+      "isbn": "ISBN Number",
+      "isRead": "true/false",
+      "lastPageRead": "page_number",
+      "readingListSequenceNumber": "sequence_number",
+      "publisher": "Publisher Name",
+      "language": "Language",
+      "author": "Author Name",
+      "pageCount": "number_of_pages",
+      "averageRating": "average_rating",
+      "title": "The Book Title",
+      "thumbnail": "URL to book cover image",
+      "description": "Book Description"
+    }
+  ]  
 }
 ```
 
