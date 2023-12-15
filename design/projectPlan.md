@@ -89,6 +89,7 @@
 - [x] Create an Elastic Beanstalk instance
 - [x] Create a database instance
 - [x] Add link to project site to README.md
+- [x] Upload test data to database
 
 ### Database Persistence (John)
 - [x] Create a database/Hibernate package/classes
