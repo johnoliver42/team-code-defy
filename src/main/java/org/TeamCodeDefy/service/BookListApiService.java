@@ -52,6 +52,11 @@ public final class BookListApiService {
         return readingListDao.getById(readingListId);
     }
 
+    /** Delete a reading list.
+     *
+     * @param id the reading list id
+     * @return boolean
+     */
     public static boolean deleteReadingList(int id) {
 
         ReadingList readingList = readingListDao.getById(id);
@@ -64,12 +69,22 @@ public final class BookListApiService {
         }
     }
 
+    /** Get reading list by id.
+     *
+     * @param readingListId the reading list id
+     * @return ReadingList
+     */
     public static ReadingList getReadingListById(int readingListId) {
 
         return readingListDao.getById(readingListId);
     }
 
-
+    /** Add a book to a reading list.
+     *
+     * @param readingListId the reading list id
+     * @param isbn the book isbn
+     * @return Book
+     */
     public static Book addBookToReadingListByIsbn(int readingListId, String isbn) {
 
         // Get book from Google Books API
@@ -106,6 +121,12 @@ public final class BookListApiService {
         return newBook;
     }
 
+    /** Remove a book from a reading list.
+     *
+     * @param readingListId the reading list id
+     * @param bookId the book id
+     * @return boolean
+     */
     public static boolean removeBookFromReadingList(int readingListId, int bookId) {
         // Get the reading list
         ReadingList readingList = getReadingListById(readingListId);
@@ -123,6 +144,14 @@ public final class BookListApiService {
         return false;
     }
 
+    /**
+     * Update the readingListSequenceNumber for a book in a readingList.
+     *
+     * @param readingListId the readingList id
+     * @param bookId the book id
+     * @param newPosition the new readingListSequenceNumber for the book
+     * @return boolean
+     */
     public static boolean updateReadingListOrder(int readingListId, int bookId, int newPosition) {
 
         // Get readingList from database

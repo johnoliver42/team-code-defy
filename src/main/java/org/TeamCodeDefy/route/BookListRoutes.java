@@ -33,7 +33,7 @@ public class BookListRoutes {
     @Path("create-list/{listName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createReadingList(@PathParam("listName") String listName) {
-        System.out.println("listName: " + listName);
+
         // Call the function in BookListApiService.java to create a new reading list
         ReadingList newReadingList = BookListApiService.createReadingList(listName);
 
