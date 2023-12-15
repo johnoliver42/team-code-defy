@@ -10,13 +10,16 @@ import java.io.Serializable;
  * This class is used to generate a unique id for a ReadingList so that the
  * reading list id can have a minimum of 8 digits.
  */
-public class ReadingListIdGenerator implements IdentifierGenerator {
+public class ReadingListIdGenerator implements IdentifierGenerator, Serializable {
 
-    public static final String generatorName = "ReadingListIdGenerator";
+    public static final String GENERATOR_NAME = "ReadingListIdGenerator";
     private static final long serialVersionUID = 1L;
 
     private static final int MINIMUM_ID = 10000000;
 
+    /**
+     * Instantiates a new Reading list id generator. This constructor is required by Hibernate.
+     */
     public ReadingListIdGenerator() {}
 
     /**
@@ -32,7 +35,7 @@ public class ReadingListIdGenerator implements IdentifierGenerator {
 
         do {
             id = (int)(Math.random() * Integer.MAX_VALUE) + MINIMUM_ID;
-        } while (new GenericDao<>(ReadingList.class).exists(id));
+        } while (Boolean.TRUE.equals(new GenericDao<>(ReadingList.class).exists(id)));
 
         return id;
     }

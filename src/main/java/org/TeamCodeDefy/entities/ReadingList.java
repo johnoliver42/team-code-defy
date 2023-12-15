@@ -11,9 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -27,8 +25,8 @@ public class ReadingList {
     @JsonProperty("id")
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(generator = ReadingListIdGenerator.generatorName)
-    @GenericGenerator(name = ReadingListIdGenerator.generatorName, strategy = "org.TeamCodeDefy.persistance.ReadingListIdGenerator")
+    @GeneratedValue(generator = ReadingListIdGenerator.GENERATOR_NAME)
+    @GenericGenerator(name = ReadingListIdGenerator.GENERATOR_NAME, strategy = "org.TeamCodeDefy.persistance.ReadingListIdGenerator")
     private Integer id;
 
     @JsonProperty("listName")
